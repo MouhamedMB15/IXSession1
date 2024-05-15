@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="normalize.css" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="index.css" />
+    <title>Mbengue Landing Page</title>
+  </head>
+  <body>
+    <!--NAV BAR-->
+    <div class="navbar">
+      <div class="logo">Mouhamed Mbengue</div>
+      <!--NavBar-->
+      <ul class="navbar__links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About Me</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <!--Burger Menu Tempt-->
+      <div class="navbar__burger">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+      </div>
+    </div>
+
+    <!--Profile Sections-->
+    <section id="profile">
+      <!--IMG Container-->
+      <div class="section__img-container">
+        <img src="assets/headphoto.png" alt="Mbengue Profile Headshot" />
+      </div>
+      <!--Header Text Container-->
+      <div class="section__text">
+        <p class="section__text__p1">Hello, I'm</p>
+        <h1 class="title">Mouhamed Mbengue</h1>
+        <p class="section__text__p2">CS Student</p>
+        <!--Button Resume-->
+        <div class="button-container">
+          <!--Resume Button-->
+          <button
+            class="btn resume-btn1"
+            onclick="window.open('Mbengue-Resume-(1).pdf')"
+          >
+            Download CV
+          </button>
+          <!--Contact-->
+          <button class="btn resume-btn2" onclick="location.href='#contact'">
+            Contact
+          </button>
+        </div>
+        <!--Socials-->
+        <div id="socials-container">
+          <!--LinkedIn-->
+          <img
+            src="./assets/linkedin.png"
+            alt="Linkin In Profile Link"
+            class="icon"
+            onclick="location.href='https://linkedin.com/in/mmbengue0/'"
+          />
+          <!--GitHub-->
+          <img
+            src="./assets/github.png"
+            alt="GitHub Profile Link"
+            class="icon"
+            onclick="location.href='https://github.com/MouhamedMB15'"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!--About Me Section-->
+    <section id="about">
+      <p class="section__text__p1">Know More</p>
+      <p class="title">About Me</p>
+      <div class="section-container">
+        <div class="about-details-container">
+          <div class="about-containers">
+            <div class="details-container">
+              <img
+                src="assets/experience.png"
+                alt="Expirence Icon"
+                class="icon__abt"
+              />
+              <!--Expirence-->
+              <h3>Expirence</h3>
+              <p>2+ Years <br />Software Development</p>
+            </div>
+            <div class="details-container">
+              <img
+                src="assets/education.png"
+                alt="Education Icon"
+                class="icon__abt"
+              />
+              <!--Education-->
+              <h3>Education</h3>
+              <p>University Of Rochester<br />B.S. Computer Science</p>
+            </div>
+            <div class="details-container">
+              <img
+                src="assets/checkmark (1)-1.png"
+                alt="CheckMark Icon"
+                class="icon__abt"
+              />
+              <!--Languages-->
+              <h3>Languages</h3>
+              <p>Java, HTML, CSS <br />React JS, JavaScript</p>
+            </div>
+          </div>
+          <!--Additional Notes-->
+          <div class="text-container">
+            <p class="text__1">
+              Hi, my name is Mouhamed Mbengue I'm an upcoming Junior at the
+              University of Rochester studying computer science. I have some
+              experience with languages such as Java, HTML, CSS, JavaScript, and
+              React JS. My path is not just about getting a degree; it is also
+              about never-ending seeking out new information and creative ideas.
+              I intend to approach computer science with steadfast resolve and
+              be motivated by a strong love for all things engineering. My
+              dedication extends beyond the classroom; I work closely with
+              classmates on difficult assignments and proactively look for
+              chances to help them expand their horizons. My goal is to make a
+              significant contribution to the field of computer science in
+              addition to academic excellence because I have a clear
+              understanding of how it may change the world.
+            </p>
+
+            <p class="text__2">
+              In my free time, I love to play basketball, especially with others
+              in teams. In addition to playing Call of Duty Warzone. Fun facts
+              about me, I play for my school's Club Basketball team and help in
+              leading practices for my team. I love to work with others and
+              learn from people I work with to help develop my skills and
+              others.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!--Contact Section-->
+    <section id="contact">
+      <p class="section__text__p1">Contact</p>
+      <h1 class="title">Contact Me</h1>
+      <div class="contact-info-upper-container">
+        <div class="contact-info-container">
+          <!--Email-->
+          <img
+            src="assets/email.png"
+            alt="Email Icon"
+            class="icon contact-icon"
+          />
+          <p>
+            <a href="mailto:mouhamed23mbengue@gmail.com"
+              >mouhamed23mbengue@gmail.com</a
+            >
+          </p>
+        </div>
+        <div class="contact-info-container">
+          <!--Linked In-->
+          <img
+            src="assets/linkedin.png"
+            alt="LinkedIn Icon"
+            class="icon contact-icon"
+          />
+          <p>
+            <a href="https://www.linkedin.com/in/mmbengue0/">LinkedIn</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!--Script-->
+    <script src="index.js"></script>
+  </body>
+</html>

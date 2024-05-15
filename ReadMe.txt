@@ -23,9 +23,5 @@ Host:
 
 	This website is hosted utilizing GitHub Pages. 
 
-Languages Utlized:
-
-  HTML, CSS, JavaScript
-
 
 Mouhamed Mbengue 
