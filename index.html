@@ -6,112 +6,106 @@
     <link rel="stylesheet" href="normalize.css" />
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="index.css" />
+    <!--Remix Icons-->
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <!--Boost Strap-->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
     <title>Mbengue Landing Page</title>
   </head>
-  <body>
+  <body class="bg-dark text-white">
     <!--NAV BAR-->
-    <div class="navbar">
-      <div class="logo">Mouhamed Mbengue</div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <!--NavBar-->
-      <ul class="navbar__links">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About Me</a></li>
-        <li><a href="#contact">Contact</a></li>
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="#home">Home</a>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="#about">About Me</a></li>
+        <li class="nav-item">
+          <a class="nav-link" href="#contact">Contact</a>
+        </li>
       </ul>
-
-      <!--Burger Menu Tempt-->
-      <div class="navbar__burger">
-        <div class="line1"></div>
-        <div class="line2"></div>
-        <div class="line3"></div>
-      </div>
-    </div>
+    </nav>
 
     <!--Profile Sections-->
-    <section id="profile">
-      <!--IMG Container-->
-      <div class="section__img-container">
-        <img src="assets/headphoto.png" alt="Mbengue Profile Headshot" />
-      </div>
-      <!--Header Text Container-->
-      <div class="section__text">
-        <p class="section__text__p1">Hello, I'm</p>
-        <h1 class="title">Mouhamed Mbengue</h1>
-        <p class="section__text__p2">CS Student</p>
-        <!--Button Resume-->
-        <div class="button-container">
-          <!--Resume Button-->
-          <button
-            class="btn resume-btn1"
-            onclick="window.open('Mbengue-Resume-(1).pdf')"
-          >
-            Download CV
-          </button>
-          <!--Contact-->
-          <button class="btn resume-btn2" onclick="location.href='#contact'">
-            Contact
-          </button>
+    <section id="profile" class="container text-center">
+      <div class="row align-items-center">
+        <!--IMG Container-->
+        <div class="col-md-4">
+          <img
+            src="assets/headphoto.png"
+            alt="Mbengue Profile Headshot"
+            class="img-fluid"
+          />
         </div>
-        <!--Socials-->
-        <div id="socials-container">
-          <!--LinkedIn-->
-          <img
-            src="./assets/linkedin.png"
-            alt="Linkin In Profile Link"
-            class="icon"
-            onclick="location.href='https://linkedin.com/in/mmbengue0/'"
-          />
-          <!--GitHub-->
-          <img
-            src="./assets/github.png"
-            alt="GitHub Profile Link"
-            class="icon"
-            onclick="location.href='https://github.com/MouhamedMB15'"
-          />
+        <!--Header Text Container-->
+        <div class="col-md-8">
+          <p class="section__text__p1">Hello, I'm</p>
+          <h1 class="title">Mouhamed Mbengue</h1>
+          <p class="section__text__p2">CS Student</p>
+          <!--Buttons-->
+          <!--Button Resume-->
+          <!--Justify Content Center-->
+          <div class="button-container mt-3 d-flex justify-content-center">
+            <!--Resume Button-->
+            <a href="Mbengue-Resume-(1).pdf" class="btn btn-primary mr-3"
+              >Resume</a
+            >
+            <!--Contact-->
+            <a href="#contact" class="btn btn-secondary">Contact</a>
+          </div>
+          <!--Socials-->
+          <div id="socials-container" class="mt-4">
+            <!--LinkedIn-->
+            <a href="https://linkedin.com/in/mmbengue0/">
+              <i class="ri-linkedin-box-fill"></i>
+            </a>
+            <!--GitHub-->
+            <a href="https://github.com/MouhamedMB15">
+              <i class="ri-github-fill"></i>
+            </a>
+          </div>
         </div>
       </div>
     </section>
 
     <!--About Me Section-->
-    <section id="about">
+    <section id="about" class="container text-center">
       <p class="section__text__p1">Know More</p>
       <p class="title">About Me</p>
-      <div class="section-container">
-        <div class="about-details-container">
-          <div class="about-containers">
-            <div class="details-container">
-              <img
-                src="assets/experience.png"
-                alt="Expirence Icon"
-                class="icon__abt"
-              />
-              <!--Expirence-->
-              <h3>Expirence</h3>
+      <div class="section-container row">
+        <div class="about-details-container col-md-8 offset-md-2">
+          <div class="about-containers row">
+            <!--Margin Impolentation for details container-->
+            <div class="details-container col-md-4">
+              <i class="ri-graduation-cap-line"></i>
+              <!--Experience-->
+              <h3>Experience</h3>
               <p>2+ Years <br />Software Development</p>
             </div>
-            <div class="details-container">
-              <img
-                src="assets/education.png"
-                alt="Education Icon"
-                class="icon__abt"
-              />
+            <div class="details-container col-md-4 mb-3">
+              <i class="ri-group-fill"></i>
               <!--Education-->
               <h3>Education</h3>
               <p>University Of Rochester<br />B.S. Computer Science</p>
             </div>
-            <div class="details-container">
-              <img
-                src="assets/checkmark (1)-1.png"
-                alt="CheckMark Icon"
-                class="icon__abt"
-              />
+            <div class="details-container col-md-4 mb-3">
+              <i class="ri-check-double-line"></i>
               <!--Languages-->
               <h3>Languages</h3>
               <p>Java, HTML, CSS <br />React JS, JavaScript</p>
             </div>
           </div>
           <!--Additional Notes-->
-          <div class="text-container">
+          <div class="text-container mt-4">
             <p class="text__1">
               Hi, my name is Mouhamed Mbengue I'm an upcoming Junior at the
               University of Rochester studying computer science. I have some
@@ -128,7 +122,7 @@
               understanding of how it may change the world.
             </p>
 
-            <p class="text__2">
+            <p class="text__2 mt-4">
               In my free time, I love to play basketball, especially with others
               in teams. In addition to playing Call of Duty Warzone. Fun facts
               about me, I play for my school's Club Basketball team and help in
@@ -142,30 +136,24 @@
     </section>
 
     <!--Contact Section-->
-    <section id="contact">
+    <section id="contact" class="container">
       <p class="section__text__p1">Contact</p>
       <h1 class="title">Contact Me</h1>
-      <div class="contact-info-upper-container">
-        <div class="contact-info-container">
+      <div
+        class="contact-info-upper-container row justify-content-center mt-4 mb-4"
+      >
+        <div class="contact-info-container col-md-4">
           <!--Email-->
-          <img
-            src="assets/email.png"
-            alt="Email Icon"
-            class="icon contact-icon"
-          />
+          <i class="ri-mail-line"></i>
           <p>
             <a href="mailto:mouhamed23mbengue@gmail.com"
               >mouhamed23mbengue@gmail.com</a
             >
           </p>
         </div>
-        <div class="contact-info-container">
-          <!--Linked In-->
-          <img
-            src="assets/linkedin.png"
-            alt="LinkedIn Icon"
-            class="icon contact-icon"
-          />
+        <div class="contact-info-container col-md-4">
+          <!--LinkedIn-->
+          <i class="ri-linkedin-fill"></i>
           <p>
             <a href="https://www.linkedin.com/in/mmbengue0/">LinkedIn</a>
           </p>
@@ -174,6 +162,22 @@
     </section>
 
     <!--Script-->
+    <!--BootStrap-->
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
     <script src="index.js"></script>
   </body>
 </html>
