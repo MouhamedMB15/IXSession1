@@ -19,6 +19,7 @@
     --font-roboto: 'Roboto, sans-serif';
 
     /**COLORS**/
+    --color-bk: black;
     --background-color-main: #222831;
     --inner-container-color:#31363F;
     --inner-container-color-hover:#23272e;
