@@ -44,7 +44,7 @@ const b = 10; //return 10th fib num
 console.log(`The nth Fibonacci of n = ${b} is ${nthFib(b)}.`);
 
 //test cases for arr
-console.log("Nth Fibinoicci num.");
+console.log("Fibionacci Numbers up to n = 10");
 const c = 10; //n 10
 console.log(`The Fibinocci numbs up to ${c} is ${fib(c)}.`);
 
