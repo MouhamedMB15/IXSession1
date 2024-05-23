@@ -1,13 +1,10 @@
 import React from "react";
+import './categories.css';
 
-export default function Categories({ categories }) {
-  if (!categories) {
-    return <div>No categories available</div>;
-  }
-
+export default function Categories({ blogPost }) {
   return (
     <div className="flex-wrap">
-      {categories.map((category, index) => (
+      {blogPost.categories.map((category, index) => (
         <p
           key={index}
           className="category-tag"

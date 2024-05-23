@@ -2,12 +2,12 @@
 
 //Imports
 import React from 'react'
-import Heading from '../Heading/Heading';
-import Navbar from '../Navbar/Navbar';
-import BlogGrid from '../Bloggrid/Bloggrid';
-import Footer from '../Footer/Footer';
-import Subheading from '../Subheading/Subheading';
-import CategoryList from '../Categorylist/CategoryList';
+import Heading from '../../Heading/Heading';
+import Navbar from '../../Navbar/Navbar';
+import BlogGrid from '../../Bloggrid/Bloggrid';
+import Footer from '../../Footer/Footer';
+import Subheading from '../../Subheading/Subheading';
+import CategoryList from '../../Categorylist/CategoryList';
 
 //Dummy Data
 
@@ -15,7 +15,7 @@ import CategoryList from '../Categorylist/CategoryList';
 
 
 // Week 1: Import the blogPosts and categories from the dummy-data.json file
-import data from '../../dummy-data.json';
+import data from '../../../dummy-data.json';
 const blogs = data.blogPosts.reverse();
 const categories = data.categories;
 
@@ -34,4 +34,3 @@ export default function HomePage() {
     </>
   );
 }
-
