@@ -9,8 +9,8 @@ import Footer from '../../Footer/Footer';
 
 //Data
 import data from '../../../dummy-data.json';
-let blogPosts = data.blogPosts;
-const categories = data.categories;
+let blogPosts = data.blogPosts; //Blog Post
+const categories = data.categories; //Categories
 
 
 //Blog Posts
@@ -20,27 +20,38 @@ export default function BlogsPage() {
   const [categoryId, setCategoryID] = useState(null);
 
   //Use Effect
-  useEffect(() => {
-    if (categoryId !== null) {
-      const filterBlogs = blogPosts.filter((blog) =>
-        blog.categories.some((category) => category.id === categoryId)
-      );
+  const callbackFunction = () => {
+    if (categoryId) {
+      const filterBlogs = blogPosts.filter((blog) => {
+        return blog.categories.some((category) => category.id === categoryId);
+      });
       setBlogs(filterBlogs);
-    } else {
-      setBlogs(blogPosts); // Reset to all blogs if no category is selected
     }
-  }, [categoryId]);
+  };
+  useEffect(callbackFunction, [categoryId]);
 
-  const CategoriesList = () => {
-    return categories.map((category, index) => (
-      <button
-        key={index}
-        onClick={() => setCategoryID(category.id)}
-        style={{ color: categoryId === category.id ? "rgb(93, 204, 252)" : "black" }}
-      >
-        <p>{category.title}</p>
-      </button>
-    ));
+  //Category List
+
+  const CategoriesList = ({ categoryId }) => {
+    return categories.map((category) => {
+      return categoryId === category.id ? (
+        <button
+          key={category.id}
+          onClick={() => setCategoryID(category.id)}
+          style={{ color: "rgb(93, 204, 252)" }}
+        >
+          <p key={category.id}>{category.title}</p>
+        </button>
+      ) : (
+        <button
+          key={category.id}
+          onClick={() => setCategoryID(category.id)}
+          style={{ color: "black" }}
+        >
+          <p key={category.id}>{category.title}</p>
+        </button>
+      );
+    });
   };
 
   return (
@@ -49,13 +60,14 @@ export default function BlogsPage() {
       <div className="container">
         <Heading />
         <div className="scroll-menu">
-          <CategoriesList />
+          <CategoriesList categoryId={categoryId} />
         </div>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <p className="page-subtitle">Blog Posts</p>
         </div>
         <BlogList blogPosts={blogs} />
       </div>
+
       <Footer />
     </>
   );

@@ -46,7 +46,7 @@ export default function Navbar() {
             </li>
 
             <li className="nav-item dropdown">
-              <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style={{border: 'none'}}>
+              <button className="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style={{border: 'none', backgroundColor: 'transparent'}}>
                 <IoPersonCircleOutline size={24} style={{display: 'flex', alignItems: 'center'}} />
               </button>
               <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">

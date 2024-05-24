@@ -63,7 +63,11 @@ const Login = () => {
           </div>
          
         </form>
-        <div className="my-5 w-100 text-center">&copy; Blog App 2024</div>
+        <div className="my-5 w-100 text-center">
+        <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+          &copy; Blog App 2024
+        </Link>
+      </div>
       </div>
     </div>
   );

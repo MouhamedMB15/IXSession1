@@ -6,28 +6,27 @@ import "./bloglist.css";
 import BlogItem from '../BlogItem/BlogItem';
 
 export default function BlogList({ blogPosts }) {
+  if (!blogPosts && !blogPosts?.length) {
+    return null;
+  }
+
   return (
-    <div className="blog-list">
-      {blogPosts.map((blogPost, index) => {
+    <div className="d-flex w-100">
+      {blogPosts.map((blog, index) => {
         return (
-          <div
+          <BlogItem
             key={index}
-            style={{
-              width: "100%",
-            }}
-          >
-            <BlogItem
-              index={index}
-              blogPost={blogPost}
-              imageOrientation={"top"}
-            />
-          </div>
+            index={index}
+            blogPost={blog}
+            setBlog={() => {}}
+            imageOrientation={"top"}
+          />
         );
       })}
     </div>
   );
 }
 
-BlogList.propTypes = {
-  blogPosts: PropTypes.array.isRequired,
+BlogList.prototype = {
+    blogPosts: PropTypes.array.isRequired,
 };
