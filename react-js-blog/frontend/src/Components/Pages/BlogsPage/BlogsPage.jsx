@@ -1,46 +1,47 @@
 
-import React, { useState } from "react";
+//Imports
+import React, { useEffect, useState } from "react";
 import './blogspage.css';
 import Navbar from '../../Navbar/Navbar';
 import Heading from "../../Heading/Heading";
 import BlogList from '../../BlogList/BlogList';
-import Categories from "../../Categories/Categories";
-import CategoriesList from '../../Categorylist/CategoryList';
 import Footer from '../../Footer/Footer';
-import Subheading from "../../Subheading/Subheading";
-import BlogGrid from "../../Bloggrid/Bloggrid";
 
 //Data
 import data from '../../../dummy-data.json';
 let blogPosts = data.blogPosts;
 const categories = data.categories;
 
+
+//Blog Posts
 export default function BlogsPage() {
-  //Initializing our states:
-  const [categoryId, setCategoryId] = useState();
-  const [blogs, setBlogs] = useState([]);
+  //States
+  const [blogs, setBlogs] = useState(blogPosts);
+  const [categoryId, setCategoryID] = useState(null);
+
+  //Use Effect
+  useEffect(() => {
+    if (categoryId !== null) {
+      const filterBlogs = blogPosts.filter((blog) =>
+        blog.categories.some((category) => category.id === categoryId)
+      );
+      setBlogs(filterBlogs);
+    } else {
+      setBlogs(blogPosts); // Reset to all blogs if no category is selected
+    }
+  }, [categoryId]);
 
   const CategoriesList = () => {
-    return categories.map((category, index) => {
-      return categoryId === category.id.toString() ? (
-        <button
-          key={index}
-          onClick={() => setCategoryId(category.id)}
-          style={{ color: "blue" }}
-        >
-          <p key={index}>{category.title}</p>
-        </button>
-      ) : (
-        <button
-          key={index}
-          onClick={() => setCategoryId(category.id)}
-          style={{ color: "black" }}
-        >
-          <p key={index}>{category.title}</p>
-        </button>
-      );
-    });
-  }
+    return categories.map((category, index) => (
+      <button
+        key={index}
+        onClick={() => setCategoryID(category.id)}
+        style={{ color: categoryId === category.id ? "rgb(93, 204, 252)" : "black" }}
+      >
+        <p>{category.title}</p>
+      </button>
+    ));
+  };
 
   return (
     <>
@@ -53,7 +54,7 @@ export default function BlogsPage() {
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <p className="page-subtitle">Blog Posts</p>
         </div>
-        <BlogList blogPosts={blogPosts} />
+        <BlogList blogPosts={blogs} />
       </div>
       <Footer />
     </>

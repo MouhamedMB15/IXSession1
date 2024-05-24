@@ -1,38 +1,22 @@
+.scroll-menu {
+  overflow: auto;
+  white-space: nowrap;
+}
 
+.scroll-menu button {
+  border: none;
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 14px;
+  font-size: larger;
+  cursor: pointer;
+  background-color: rgb(245, 245, 245);
+}
 
-.container {
-    width: 90%;
-    margin: 0 auto;
-  }
-  
-  .scroll-menu {
-    display: flex;
-    justify-content: space-between;
-    overflow-x: auto;
-    padding: 10px 0;
-    margin: 0;
-    
-  }
-  
+.scroll-menu button p:hover {
+  color: rgb(93, 204, 252);
+  border-bottom: 1px solid rgb(93, 204, 252);
+  transition: all 0.25s;
+}
 
-  
-  .category-button p {
-    margin: 0;
-    text-decoration: none;
-  }
-  
-  
-  button {
-    background: none;
-    border: none;
-    text-decoration: underline;
-  }
-
-  button p {
-    font-size: 13px;
-  }
-  
-  button:focus {
-    outline: none;
-  }
-  

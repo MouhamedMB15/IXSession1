@@ -6,6 +6,8 @@ import Navbar from './Components/Navbar/Navbar'
 import CategoriesPage from './Components/Pages/CategoriesPage/CategoriesPage';
 import BlogsPage from './Components/Pages/BlogsPage/BlogsPage';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Login from './Components/Login/Login';
+import Register from './Components/Register/Register';
 
 import { BrowserRouter as Router, Route, Routes } from  'react-router-dom';
 
@@ -20,6 +22,9 @@ function App() {
           <Route path="/" element={<Homepage />} />
           <Route path="/categories" element={<CategoriesPage />} />
           <Route path="/blogs" element={<BlogsPage />} />
+          <Route path = '/login' element={<Login/>}/>
+          <Route path = '/register' element={<Register/>}/>
+          
         </Routes>
       </div>
     </Router>
