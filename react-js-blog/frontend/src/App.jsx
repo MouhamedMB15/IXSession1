@@ -9,6 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './Components/Login/Login';
 import Register from './Components/Register/Register';
 import BlogPage from './Components/Pages/BlogPage/BlogPage';
+import AboutPage from './Components/Pages/AboutPage/AboutPage';
 
 import { BrowserRouter as Router, Route, Routes } from  'react-router-dom';
 
@@ -26,6 +27,7 @@ function App() {
           <Route path="/blog/:blogId" element={<BlogPage />} /> 
           <Route path = '/login' element={<Login/>}/>
           <Route path = '/register' element={<Register/>}/>
+          <Route path = '/about' element={<AboutPage/>}/>
           
         </Routes>
       </div>

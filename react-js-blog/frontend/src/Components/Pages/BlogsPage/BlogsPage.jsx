@@ -7,6 +7,12 @@ import Heading from "../../Heading/Heading";
 import BlogList from '../../BlogList/BlogList';
 import Footer from '../../Footer/Footer';
 
+//Services
+import BlogService from '../../../Services/BlogService';
+import CategoriesService from '../../../Services/CategoriesService';
+import categoriesIDService from "../../../Services/CategoriesIDService";
+
+
 //Data
 import data from '../../../dummy-data.json';
 let blogPosts = data.blogPosts; //Blog Post

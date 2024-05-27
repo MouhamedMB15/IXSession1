@@ -28,26 +28,26 @@ export default function BlogPage() {
 
         <h2 className='header'>Blog Reading Page</h2>
 
-            <div className="blog-header">
-            <img src={blogPost.image} alt="Blog" className="blog-image" />
-            </div>
-            <div className="blog-content">
-                <h1>{blogPost.title}</h1>
-                <p className="blog-date">Published on {new Date(blogPost.createdAt).toDateString()} by {blogPost.author.firstName} {blogPost.author.lastName}</p>
-                {blogPost.content.map((section, index) => (
-                    <div key={index} className="blog-section">
-                    <p>{section.sectionText}</p>
-                    </div>
-                ))}
-            </div>
-            <div className="blog-footer">
-            <div className="about-author">
-                <h2>About the author</h2>
-                <img src={blogPost.author.image} alt={blogPost.author.firstName} className="author-image" />
-                <p>{blogPost.author.bio}</p>
-            </div>
-            </div>
-            <Footer/>
+        <div className="blog-header">
+        <img src={blogPost.image} alt="Blog" className="blog-image" />
+        </div>
+        <div className="blog-content">
+            <h1>{blogPost.title}</h1>
+            <p className="blog-date">Published on {new Date(blogPost.createdAt).toDateString()} by {blogPost.author.firstName} {blogPost.author.lastName}</p>
+            {blogPost.content.map((section, index) => (
+                <div key={index} className="blog-section">
+                <p>{section.sectionText}</p>
+                </div>
+            ))}
+        </div>
+        <div className="blog-footer">
+        <div className="about-author">
+            <h2>About the author</h2>
+            <img src={blogPost.author.image} alt={blogPost.author.firstName} className="author-image" />
+            <p>{blogPost.author.bio}</p>
+        </div>
+        </div>
+        <Footer/>
         </div>
         
         
