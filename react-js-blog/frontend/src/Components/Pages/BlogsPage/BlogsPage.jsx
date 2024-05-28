@@ -1,4 +1,3 @@
-
 //Imports
 import React, { useEffect, useState } from "react";
 import './blogspage.css';
@@ -6,59 +5,74 @@ import Navbar from '../../Navbar/Navbar';
 import Heading from "../../Heading/Heading";
 import BlogList from '../../BlogList/BlogList';
 import Footer from '../../Footer/Footer';
+import { useParams, Link } from "react-router-dom";
 
 //Services
-import BlogService from '../../../Services/BlogService';
-import CategoriesService from '../../../Services/CategoriesService';
-import categoriesIDService from "../../../Services/CategoriesIDService";
-
-
-//Data
-import data from '../../../dummy-data.json';
-let blogPosts = data.blogPosts; //Blog Post
-const categories = data.categories; //Categories
-
+import blogService from "../../../Services/BlogService";
+import categoriesService from "../../../Services/CategoriesService";
 
 //Blog Posts
 export default function BlogsPage() {
-  //States
-  const [blogs, setBlogs] = useState(blogPosts);
-  const [categoryId, setCategoryID] = useState(null);
 
-  //Use Effect
-  const callbackFunction = () => {
-    if (categoryId) {
-      const filterBlogs = blogPosts.filter((blog) => {
-        return blog.categories.some((category) => category.id === categoryId);
-      });
-      setBlogs(filterBlogs);
-    }
-  };
-  useEffect(callbackFunction, [categoryId]);
 
-  //Category List
+  const { categoryId } = useParams();
+
+  const [blogs, setBlogs] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const blogsRes = await blogService.getBlogsByCategoryId(categoryId);
+      const categoriesRes = await categoriesService.getCategories();
+
+      setBlogs(blogsRes);
+      setCategories(categoriesRes);
+      setLoading(false);
+    };
+
+    fetchData();
+  }, [categoryId]);
 
   const CategoriesList = ({ categoryId }) => {
+    if (!categories && !categories?.length) {
+      return null;
+    }
+
     return categories.map((category) => {
       return categoryId === category.id ? (
-        <button
+        <Link
+          className="link"
           key={category.id}
-          onClick={() => setCategoryID(category.id)}
-          style={{ color: "rgb(93, 204, 252)" }}
+          to={"/blogs/" + category.id}
+          style={{ color: "blue" }}
+          onClick={() => setLoading(true)}
         >
-          <p key={category.id}>{category.title}</p>
-        </button>
+          <p>{category.title}</p>
+        </Link>
       ) : (
-        <button
+        <Link
+          className="link"
           key={category.id}
-          onClick={() => setCategoryID(category.id)}
+          to={"/blogs/" + category.id}
           style={{ color: "black" }}
+          onClick={() => setLoading(true)}
         >
-          <p key={category.id}>{category.title}</p>
-        </button>
+          <p key = {category.id}>{category.title}</p>
+        </Link>
       );
     });
   };
+
+  if (loading) {
+    return (
+      <div className="d-flex justify-content-center align-items-center">
+        <div className="spinner-border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>

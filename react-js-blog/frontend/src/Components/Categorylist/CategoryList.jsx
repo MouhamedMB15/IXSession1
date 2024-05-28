@@ -1,12 +1,15 @@
 
-
+//Imports
 import React from 'react';
 import './categorylist.css';
-
-import PropTypes from "prop-types";
-
+import PropTypes from 'prop-types';
 
 export default function CategoryList({ categories }) {
+
+  if (!categories && !categories?.length) {
+    return null;
+  }
+
   return (
     <div className="category-list">
       {categories.map((category) => {
@@ -20,7 +23,7 @@ export default function CategoryList({ categories }) {
             }}
           >
             <div
-              className="card-body"
+              className="card-body w-100"
               style={{
                 backgroundColor: category.color + "33",
                 position: "relative",
@@ -40,3 +43,7 @@ export default function CategoryList({ categories }) {
     </div>
   );
 }
+
+CategoryList.propTypes = {
+  categories: PropTypes.array.isRequired,
+};

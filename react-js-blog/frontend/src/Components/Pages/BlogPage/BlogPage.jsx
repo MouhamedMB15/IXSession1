@@ -7,6 +7,9 @@ import './blogpage.css';
 import Navbar from '../../Navbar/Navbar';
 import Footer from '../../Footer/Footer';
 
+
+
+
 //Blog Page
 
 export default function BlogPage() {

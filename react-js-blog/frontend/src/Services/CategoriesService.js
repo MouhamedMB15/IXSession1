@@ -20,7 +20,7 @@ const getCategories = async () => {
         return categoriesApiData.data;
         
     }
-    catch (error) {
+    catch (error) { 
         throw new Error(error);
     }
 };

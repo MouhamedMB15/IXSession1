@@ -34,25 +34,14 @@ export default function HomePage() {
     const fetchBlogs = async () => {
       try {
         const blogsRes = await BlogService.getBlogs();
+        const categoriesRes = await CategoriesService.getCategories();
         setBlogs(blogsRes);
+        setCategories(categoriesRes);
       } catch(err) {
         console.log(err);
       }
     };
     fetchBlogs();
-  }, []);
-
-  //Cateogires Service
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const categoriesRes = await CategoriesService.getCategories();
-        setCategories(categoriesRes);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchCategories();
   }, []);
 
 
