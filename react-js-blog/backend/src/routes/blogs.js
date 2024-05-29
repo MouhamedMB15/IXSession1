@@ -2,35 +2,52 @@
 
 const express = require("express");
 const router = express.Router();
-const {
-    createBlog,
-    getBlogs,
-    getBlog,
-    updateBlog,
-    deleteBlog,
-} = require('../controllers/blogs');
 
-router.post('/', (req, res) => {
-    createBlog(req, res);
+const blogController = require("../controllers/blogs");
+
+/**
+ * POST /api/blogs
+ */
+router.post("/", (req, res) => {
+  blogController.createBlogs(req, res);
 });
 
-router.get('/', (req, res) => {
-    getBlogs(req, res);
+/**
+ * GET /api/blogs
+ */
+router.get("/", (req, res) => {
+  blogController.getBlogs(req, res);
 });
 
-router.get('/:id', (req, res) => {
-    getBlog(req, res);
+/**
+ * Get blogs by blogID
+ * GET /api/blogs/:id
+ */
+router.get("/:id", (req, res) => {
+  blogController.getBlog(req, res);
 });
 
-router.put('/:id', (req, res) => {
-    updateBlog(req, res);
+/**
+ * Get blogs by categoryID
+ * GET /api/blogs/categories/:id
+ */
+router.get("/categories/:id", (req, res) => {
+  blogController.getBlogsByCategoryID(req, res);
 });
 
-router.delete('/:id', (req, res) => {
-    deleteBlog(req, res);
+/**
+ * Put /api/blogs/
+ */
+router.put("/:id", (req, res) => {
+  blogController.updateBlog(req, res);
 });
 
-
+/**
+ * DELETE /api/blogs/
+ */
+router.delete("/:id", (req, res) => {
+  blogController.deleteBlog(req, res);
+});
 
 module.exports = router;
 
