@@ -5,11 +5,14 @@ import PropTypes from "prop-types";
 import "./bloglist.css";
 import BlogItem from '../BlogItem/BlogItem';
 
-export default function BlogList({ blogPosts }) {
+
+//Blog List
+export default function BlogList({ blogPosts, setEditBlog, setDeleteBlog }) {
   if (!blogPosts && !blogPosts?.length) {
     return null;
   }
 
+  // TODO: Styling
   return (
     <div className="d-flex w-100">
       {blogPosts.map((blog, index) => {
@@ -20,6 +23,8 @@ export default function BlogList({ blogPosts }) {
             blogPost={blog}
             setBlog={() => {}}
             imageOrientation={"top"}
+            setEditBlog={setEditBlog}
+            setDeleteBlog={setDeleteBlog}
           />
         );
       })}
@@ -29,4 +34,6 @@ export default function BlogList({ blogPosts }) {
 
 BlogList.prototype = {
     blogPosts: PropTypes.array.isRequired,
+    setEditBlog: PropTypes.func.isRequired,
+    setDeleteBlog: PropTypes.func.isRequired,
 };

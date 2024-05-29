@@ -8,6 +8,11 @@ import BlogGrid from '../../Bloggrid/Bloggrid';
 import Footer from '../../Footer/Footer';
 import Subheading from '../../Subheading/Subheading';
 import CategoryList from '../../Categorylist/CategoryList';
+//Animation
+import Loading from '../../Loading/Loading';
+import SuccessToast from '../../SuccessToast/SuccessToast';
+import ErrorToast from '../../ErrorToast/ErrorToast';
+
 
 //API Data
 import BlogService from '../../../Services/BlogService';
@@ -23,26 +28,53 @@ const blogs = data.blogPosts.reverse();
 const categories = data.categories;
 **/
 
+//Home Page
 export default function HomePage() {
 
-  //State
-  const [blogs, setBlogs] = useState();
+ 
+  //New State
+  const [blogs, setBlogs] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [isError, setIsError] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [message, setMessage] = useState("");
 
-  //Blogs Service
+
+  //v
   useEffect(() => {
-    const fetchBlogs = async () => {
+    const fetchData = async () => {
       try {
-        const blogsRes = await BlogService.getBlogs();
-        const categoriesRes = await CategoriesService.getCategories();
-        setBlogs(blogsRes);
-        setCategories(categoriesRes);
-      } catch(err) {
-        console.log(err);
+        setIsLoading(true);
+        const blogs = await BlogService.fetchBlogs();
+        setBlogs(blogs.data.reverse());
+        setIsSuccess(true);
+        setMessage(blogs.message);
+        setIsLoading(false);
+      } catch (error) {
+        setIsError(true);
+        setMessage(error.message);
+        setIsLoading(false);
       }
     };
-    fetchBlogs();
+    fetchData();
   }, []);
+
+  //Reset Sucess
+  const resetSuccess = () => {
+    setIsSuccess(false);
+    setMessage("");
+  }
+
+  //Reset Error
+   const resetError = () => {
+    setIsError(false);
+    setMessage("");
+  }
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
 
 
@@ -57,6 +89,17 @@ export default function HomePage() {
         <CategoryList categories={categories}></CategoryList>
         <Footer />
       </div>
+
+      <SuccessToast
+        show={isSuccess}
+        message={message}
+        onClose={resetSuccess}
+      />
+      <ErrorToast
+        show={isError}
+        message={message}
+        onClose={resetError}
+      />
     </>
   );
 }

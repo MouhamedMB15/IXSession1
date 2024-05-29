@@ -1,5 +1,4 @@
 
-import Categories from '../Components/Categories/Categories';
 
 
 

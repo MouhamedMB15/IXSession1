@@ -7,7 +7,7 @@ const blogSchema = new mongoose.Schema(
         type: String,
         required: true,
       },
-      categoryIds: {
+      categoryId: {
         type: Array,
         required: true,
       },

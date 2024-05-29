@@ -1,63 +1,106 @@
-
-//Imports
-import React from 'react';
-import { useParams } from 'react-router-dom';
-import data from '../../../dummy-data.json'; //data
+// Imports
+import React, { useState, useEffect } from 'react';
+import { useParams, Link } from 'react-router-dom';
 import './blogpage.css';
 import Navbar from '../../Navbar/Navbar';
 import Footer from '../../Footer/Footer';
+import Loading from '../../Loading/Loading';
+import SuccessToast from '../../SuccessToast/SuccessToast';
+import ErrorToast from '../../ErrorToast/ErrorToast';
+import blogService from '../../../Services/BlogService';
+import Categories from '../../Categories/Categories';
 
-
-
-
-//Blog Page
-
+// Blog Page
 export default function BlogPage() {
+  const { blogId } = useParams(); // Get blogId from URL parameters
+  const [blog, setBlog] = useState(null);
+  const [isError, setIsError] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [message, setMessage] = useState("");
 
-    //Vars
-    const { blogId } = useParams();
-    const blogPost = data.blogPosts.find(post => post.id.toString() === blogId);
-    //No Blog Post 
-    if (!blogPost) {
-      return <div>No Blog post not found</div>;
-    }
-  
-    return (
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setIsLoading(true);
+        const response = await blogService.fetchBlogById(blogId);
+        setBlog(response.data);
+        setIsSuccess(true);
+        setMessage(response.message);
+      } catch (error) {
+        setIsError(true);
+        setMessage(error.message || error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchData();
+  }, [blogId]);
 
-        <>
+  const resetSuccess = () => {
+    setIsSuccess(false);
+    setMessage("");
+  };
 
-        <Navbar/>
-        <div className="container">
+  const resetError = () => {
+    setIsError(false);
+    setMessage("");
+  };
 
-        <h2 className='header'>Blog Reading Page</h2>
-
-        <div className="blog-header">
-        <img src={blogPost.image} alt="Blog" className="blog-image" />
-        </div>
-        <div className="blog-content">
-            <h1>{blogPost.title}</h1>
-            <p className="blog-date">Published on {new Date(blogPost.createdAt).toDateString()} by {blogPost.author.firstName} {blogPost.author.lastName}</p>
-            {blogPost.content.map((section, index) => (
-                <div key={index} className="blog-section">
-                <p>{section.sectionText}</p>
-                </div>
-            ))}
-        </div>
-        <div className="blog-footer">
-        <div className="about-author">
-            <h2>About the author</h2>
-            <img src={blogPost.author.image} alt={blogPost.author.firstName} className="author-image" />
-            <p>{blogPost.author.bio}</p>
-        </div>
-        </div>
-        <Footer/>
-        </div>
-        
-        
-        </>
-
-      
-    );
+  if (isLoading || !blog) {
+    return <Loading />;
   }
 
-  
+  return (
+    <>
+      <Navbar />
+      <main className="container">
+        <img src={blog.image} className="my-3 cover-img" alt="..." />
+        <div className="row g-5">
+          <div className="col-md-8">
+            <article className="blog-post">
+              <div className="my-5">
+                <h2 className="blog-post-title">{blog.title}</h2>
+                <p className="blog-post-meta">
+                  {blog.updatedAt.slice(0, 10)} by{" "}
+                  <Link to={"/profile/" + blog.author.id}>
+                    {blog.author.firstName} {blog.author.lastName}
+                  </Link>
+                </p>
+                <p>{blog.description}</p>
+                <Categories categories={blog.categories} />
+              </div>
+              <hr />
+              {blog.content.map((content, index) => (
+                <div key={index} className="my-5">
+                  <h2 className="my-3">{content.sectionHeader}</h2>
+                  <p>{content.sectionText}</p>
+                </div>
+              ))}
+            </article>
+          </div>
+          <div className="author col-md-4">
+            <div className="position-sticky my-5" style={{ top: "2rem" }}>
+              <div className="p-4 mb-3 bg-light rounded">
+                <h4 className="fst-italic">About the author</h4>
+                <img src={blog.author.image} className="avatar" alt="..." />
+                <p>{blog.author.bio.substring(0, 100)}...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <Footer />
+      <SuccessToast
+        show={isSuccess}
+        message={message}
+        onClose={resetSuccess}
+      />
+      <ErrorToast
+        show={isError}
+        message={message}
+        onClose={resetError}
+      />
+    </>
+  );
+}
