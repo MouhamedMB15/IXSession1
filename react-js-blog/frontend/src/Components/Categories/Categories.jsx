@@ -3,7 +3,11 @@ import React from "react";
 import './categories.css';
 import PropTypes from 'prop-types';
 
+
+
+
 export default function Categories({ categories }) {
+  if (!categories && !categories?.length) return null;
   return (
     <div className="flex-wrap">
       {categories.map((category, index) => {
@@ -24,6 +28,6 @@ export default function Categories({ categories }) {
   );
 }
 
-Categories.propTypes = {
+Categories.prototype = {
   categories: PropTypes.array.isRequired,
 };

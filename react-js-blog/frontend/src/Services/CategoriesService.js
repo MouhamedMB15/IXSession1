@@ -16,6 +16,7 @@ const getCategories = async () => {
             }
         );
         const categoriesApiData = await data.json();
+        console.log(categoriesApiData.message);
         return categoriesApiData.data;
         
     }

@@ -16,7 +16,7 @@ import ErrorToast from '../../ErrorToast/ErrorToast';
 
 //API Data
 import BlogService from '../../../Services/BlogService';
-import CategoriesService from '../../../Services/CategoriesService';
+import categoriesService from '../../../Services/CategoriesService';
 
 
 
@@ -33,8 +33,12 @@ export default function HomePage() {
 
  
   //New State
+
+  //Blogs & Cateogires
   const [blogs, setBlogs] = useState([]);
   const [categories, setCategories] = useState([]);
+
+
   const [isError, setIsError] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -43,21 +47,20 @@ export default function HomePage() {
 
   //v
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchBlogs = async () => {
       try {
-        setIsLoading(true);
-        const blogs = await BlogService.fetchBlogs();
-        setBlogs(blogs.data.reverse());
+        const blogsRes = await BlogService.getBlogs();
+        const categoryRes = await categoriesService.getCategories();
+        setBlogs(blogsRes);
+        setCategories(categoryRes);
+        setIsLoading(false);
         setIsSuccess(true);
-        setMessage(blogs.message);
-        setIsLoading(false);
-      } catch (error) {
-        setIsError(true);
-        setMessage(error.message);
-        setIsLoading(false);
+        setMessage("Data fetched successfully!");
+      } catch (err) {
+        console.log(err);
       }
     };
-    fetchData();
+    fetchBlogs();
   }, []);
 
   //Reset Sucess
