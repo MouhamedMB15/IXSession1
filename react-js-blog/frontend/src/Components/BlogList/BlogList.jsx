@@ -7,24 +7,23 @@ import BlogItem from '../BlogItem/BlogItem';
 
 
 //Blog List
-export default function BlogList({ blogPosts, setEditBlog, setDeleteBlog }) {
+export default function BlogList({ blogPosts, onBlogEdit, onBlogDelete }) {
   if (!blogPosts && !blogPosts?.length) {
     return null;
   }
 
   // TODO: Styling
   return (
-    <div className="d-flex w-100">
+    <div className="blog-list">
       {blogPosts.map((blog, index) => {
         return (
           <BlogItem
             key={index}
             index={index}
-            blogPost={blog}
-            setBlog={() => {}}
+            blog={blog}
             imageOrientation={"top"}
-            setEditBlog={setEditBlog}
-            setDeleteBlog={setDeleteBlog}
+            onBlogEdit={onBlogEdit}
+            onBlogDelete={onBlogDelete}
           />
         );
       })}
@@ -33,7 +32,5 @@ export default function BlogList({ blogPosts, setEditBlog, setDeleteBlog }) {
 }
 
 BlogList.prototype = {
-    blogPosts: PropTypes.array.isRequired,
-    setEditBlog: PropTypes.func.isRequired,
-    setDeleteBlog: PropTypes.func.isRequired,
+  blogPosts: PropTypes.array.isRequired,
 };

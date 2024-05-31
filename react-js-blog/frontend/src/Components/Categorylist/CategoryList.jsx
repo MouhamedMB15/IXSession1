@@ -3,8 +3,10 @@ import React from 'react';
 import './categorylist.css';
 import PropTypes from 'prop-types';
 
-export default function CategoryList({ categories }) {
-  if (!categories || !categories.length) {
+import EditButtons from '../EditButtons/EditButtons';
+
+export default function CategoriesList({ categories, onEdit, onDelete }) {
+  if (!categories && !categories?.length) {
     return null;
   }
 
@@ -15,7 +17,7 @@ export default function CategoryList({ categories }) {
           <button
             key={category.id}
             className="card"
-            style={{ borderRadius: "7px", border: "none", padding: "4px" }}
+            style={{ borderRadius: "0px", border: "none" }}
             onClick={() => {
               console.log("TODO: Navigate to categories page");
             }}
@@ -35,6 +37,16 @@ export default function CategoryList({ categories }) {
                 {category.description.substring(1, 100)} ...
               </p>
             </div>
+            {onEdit && onDelete && (
+              <EditButtons
+                onEdit={() => {
+                  onEdit(category);
+                }}
+                onDelete={() => {
+                  onDelete(category);
+                }}
+              />
+            )}
           </button>
         );
       })}
@@ -42,6 +54,6 @@ export default function CategoryList({ categories }) {
   );
 }
 
-CategoryList.propTypes = {
+CategoriesList.prototype = {
   categories: PropTypes.array.isRequired,
 };

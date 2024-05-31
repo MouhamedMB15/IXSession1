@@ -1,5 +1,4 @@
 
-
 const express = require("express");
 const router = express.Router();
 
@@ -24,7 +23,7 @@ router.get("/", (req, res) => {
  * GET /api/blogs/:id
  */
 router.get("/:id", (req, res) => {
-  blogController.getBlog(req, res);
+  blogController.getBlogById(req, res);
 });
 
 /**
@@ -39,15 +38,14 @@ router.get("/categories/:id", (req, res) => {
  * Put /api/blogs/
  */
 router.put("/:id", (req, res) => {
-  blogController.updateBlog(req, res);
+  blogController.updateBlogByID(req, res);
 });
 
 /**
  * DELETE /api/blogs/
  */
 router.delete("/:id", (req, res) => {
-  blogController.deleteBlog(req, res);
+  blogController.deleteBlogByID(req, res);
 });
 
 module.exports = router;
-

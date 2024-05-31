@@ -12,7 +12,7 @@ import Categories from '../../Categories/Categories';
 
 // Blog Page
 export default function BlogPage() {
-  const { blogId } = useParams(); // Get blogId from URL parameters
+  const { blogId } = useParams(); 
   const [blog, setBlog] = useState(null);
   const [isError, setIsError] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);

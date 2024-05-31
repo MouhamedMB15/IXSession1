@@ -38,7 +38,7 @@ export default function HomePage() {
   const [blogs, setBlogs] = useState([]);
   const [categories, setCategories] = useState([]);
 
-
+  //Modals
   const [isError, setIsError] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -49,10 +49,11 @@ export default function HomePage() {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const blogsRes = await BlogService.getBlogs();
-        const categoryRes = await categoriesService.getCategories();
-        setBlogs(blogsRes);
-        setCategories(categoryRes);
+        const blogsRes = await BlogService.fetchBlogs();
+        const categoryRes = await categoriesService.fetchCategories();
+        setBlogs(blogsRes.data);
+        setCategories(categoryRes.data);
+        
         setIsLoading(false);
         setIsSuccess(true);
         setMessage("Data fetched successfully!");

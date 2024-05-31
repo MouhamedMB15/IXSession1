@@ -13,6 +13,9 @@ import { useState, useEffect } from "react";
 import Loading from "../../Loading/Loading";
 import ErrorToast from "../../ErrorToast/ErrorToast";
 import SuccessToast from "../../SuccessToast/SuccessToast";
+import AddEditBlogModal from "../../AddEditBlogModal/AddEditBlogModal";
+import AddEditCategoryModal from '../../AddEditCategoryModal/AddEditCategoryModal';
+import DeleteCategoryModal from '../../DeleteCategoryModal/DeleteCategoryModal';
 
 // Styles
 
@@ -28,41 +31,102 @@ import categoriesService from '../../../Services/CategoriesService';
 // Categories Page
 export default function CategoriesPage() {
   const [categories, setCategories] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [message, setMessage] = useState("");
+  const [addCategory, setAddCategory] = useState();
+  const [editCategory, setEditCategory] = useState();
+  const [deleteCategory, setDeleteCategory] = useState();
+
+  const [loading, setLoading] = useState();
+  const [message, setMessage] = useState();
+  const [isSuccess, setIsSuccess] = useState();
+  const [isError, setIsError] = useState();
 
   useEffect(() => {
-    const fetchCategories = async () => {
+    const fetchData = async () => {
       try {
-        setIsLoading(true);
-        const categoriesData = await categoriesService.getCategories();
-        setCategories(categoriesData);
-        setIsSuccess(true);
-        setMessage("Categories fetched successfully");
-      } catch (error) {
+        setLoading(true);
+        const categoriesRes = await categoriesService.fetchCategories();
+        setCategories(categoriesRes.data);
+        setLoading(false);
+      } catch (err) {
         setIsError(true);
-        setMessage(error.message || "Error fetching categories");
-      } finally {
-        setIsLoading(false);
+        setMessage(err);
+        setLoading(false);
       }
     };
 
-    fetchCategories();
+    fetchData();
   }, []);
 
-  const resetError = () => {
-    setIsError(false);
-    setMessage("");
+  const onCategoryAdd = () => {
+    setAddCategory({
+      title: "",
+      description: "",
+      color: "#000000",
+    });
   };
 
-  const resetSuccess = () => {
-    setIsSuccess(false);
-    setMessage("");
+  const onCategoryUpdate = (category) => {
+    setEditCategory(category);
   };
 
-  if (isLoading) {
+  const onCategoryDelete = (category) => {
+    setDeleteCategory(category);
+  };
+
+  const createCategory = async (category) => {
+    try {
+      const newCategory = await categoriesService.createCategory(category);
+      setIsSuccess(true);
+      setMessage(newCategory.message);
+      setCategories((prev) => {
+        return [...prev, newCategory.data];
+      });
+    } catch (err) {
+      setIsError(true);
+      setMessage(err);
+    }
+    setAddCategory(null);
+  };
+
+  const updateCategory = async (category) => {
+    try {
+      const updatedCategory = await categoriesService.updateCategory(category);
+      setIsSuccess(true);
+      setMessage(updatedCategory.message);
+      setCategories((prev) => {
+        const index = prev.findIndex((x) => x.id === updatedCategory.data.id);
+        prev[index] = updatedCategory.data;
+        return prev;
+      });
+    } catch (err) {
+      setIsError(true);
+      setMessage(err);
+    }
+    setEditCategory(null);
+  };
+
+  const removeCategory = async (category) => {
+    try {
+      const newBlog = await categoriesService.deleteCategory(category.id);
+      setIsSuccess(true);
+      setMessage(newBlog.message);
+      setCategories((prev) => prev.filter((x) => x.id !== category.id));
+    } catch (err) {
+      setIsError(true);
+      setMessage(err);
+    }
+    setDeleteCategory(null);
+  };
+
+  const AddButton = () => {
+    return (
+      <button className="btn btn-outline-dark h-75" onClick={onCategoryAdd}>
+        ADD CATEGORY
+      </button>
+    );
+  };
+
+  if (loading) {
     return <Loading />;
   }
 
@@ -71,22 +135,48 @@ export default function CategoriesPage() {
       <Navbar />
       <div className="container">
         <Heading />
-        <Subheading subHeading={'Categories'} />
-        <CategoryList categories={categories} />
-        <Footer />
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <p className="page-subtitle">Categories</p>
+          <AddButton />
+        </div>
+        <CategoryList
+          categories={categories}
+          onEdit={onCategoryUpdate}
+          onDelete={onCategoryDelete}
+        ></CategoryList>
       </div>
+      <Footer />
+      <AddEditCategoryModal
+        addCategory={addCategory}
+        editCategory={editCategory}
+        createCategory={createCategory}
+        updateCategory={updateCategory}
+        onClose={() => {
+          setAddCategory(null);
+          setEditCategory(null);
+        }}
+      />
+      <DeleteCategoryModal
+        deleteCategory={deleteCategory}
+        removeCategory={removeCategory}
+        onClose={() => setDeleteCategory(null)}
+      />
       <SuccessToast
         show={isSuccess}
         message={message}
-        onClose={resetSuccess}
+        onClose={() => {
+          setIsSuccess(false);
+          setMessage("");
+        }}
       />
       <ErrorToast
         show={isError}
         message={message}
-        onClose={resetError}
+        onClose={() => {
+          setIsError(false);
+          setMessage("");
+        }}
       />
     </>
   );
 }
-
-

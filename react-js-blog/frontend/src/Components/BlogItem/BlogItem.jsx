@@ -7,36 +7,45 @@ import './blogitem.css';
 
 export default function BlogItem({
   index,
-  blogPost,
-  setBlog,
+  blog,
   imageOrientation,
-  setEditBlog,
-  setDeleteBlog
+  onBlogEdit,
+  onBlogDelete,
 }) {
   const navigate = useNavigate();
-
-  const handleNavigation = () => {
-    navigate(`/blog/${blogPost.id}`);
+  const navigateToBlog = () => {
+    if (!onBlogEdit && !onBlogDelete) {
+      navigate(`/blog/${blog.id}`);
+    }
   };
 
-  return (
-    <div
-      key={index}
-      className={imageOrientation === "top" ? "card-1" : "card-2"}
-      onClick={handleNavigation}
-    >
-      <img
-        src={blogPost.image}
-        className={imageOrientation === "top" ? "card-img-top" : "card-img-left"}
-        alt={blogPost.title}
+  const EditButtonsContainer = () => {
+    return (
+      <EditButtons
+        onEdit={() => onBlogEdit(blog)}
+        onDelete={() => onBlogDelete(blog)}
       />
-      <div className={imageOrientation === "top" ? "card-text-bottom" : "card-text-right"}>
-        <BlogItemText blogPost={blogPost} headerFontSize="20px" />
-        <EditButtons
-          onEdit={() => setEditBlog(blogPost)}
-          onDelete={() => setDeleteBlog(blogPost)}
-        />
+    );
+  };
+  if (imageOrientation === "top") {
+    return (
+      <div key={index} className="card-1" onClick={navigateToBlog}>
+        <img src={blog.image} className="card-img-top" alt="..." />
+        <div className="card-text-bottom">
+          <BlogItemText blogPost={blog} headerFontSize="20px" />
+          {onBlogEdit && onBlogDelete ? <EditButtonsContainer /> : null}
+        </div>
       </div>
-    </div>
-  );
+    );
+  } else {
+    return (
+      <div key={index} className="card-2" onClick={navigateToBlog}>
+        <img src={blog.image} className="card-img-left" alt="..." />
+        <div className="card-text-right">
+          <BlogItemText blogPost={blog} headerFontSize="20px" />
+          {onBlogEdit && onBlogDelete ? <EditButtonsContainer /> : null}
+        </div>
+      </div>
+    );
+  }
 }

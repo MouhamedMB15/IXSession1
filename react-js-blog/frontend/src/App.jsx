@@ -22,14 +22,22 @@ function App() {
       <div className='App'>
         
         <Routes>
+        {/**HOME */}
+          <Route path = "" element={<Homepage/>}/>
+          <Route path = "/home" element={<Homepage/>}/>
           <Route path="/" element={<Homepage />} />
-          <Route path="/categories" element={<CategoriesPage />} />
+        {/**BLOGS**/}
           <Route path="/blogs" element={<BlogsPage />} />
-          <Route path="/blogs/:blogId" element={<BlogPage />} /> 
+          <Route path="/blog/:blogId" element={<BlogPage />} /> 
+        {/**CATEGORIES PAGE**/}
+          <Route path="/categories" element={<CategoriesPage />} />
+          <Route path = '/blog/:categoryId?' element={<BlogsPage/>}/>
+        {/**REGISTRATION**/}
           <Route path = '/login' element={<Login/>}/>
           <Route path = '/register' element={<Register/>}/>
+        {/*ABOUT**/}
           <Route path = '/about' element={<AboutPage/>}/>
-          <Route path = '/blog/:categoryId?' element={<BlogsPage/>}/>
+          
           
         </Routes>
       </div>
