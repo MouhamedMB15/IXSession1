@@ -6,6 +6,8 @@ import './bloggrid.css';
 //Blog Item
 import BlogItem from '../BlogItem/BlogItem';
 import PropType from 'prop-types';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 export default function BlogGrid({ blogPosts }) {
   if (!blogPosts || !blogPosts.length) {

@@ -28,10 +28,10 @@ function App() {
           <Route path="/" element={<Homepage />} />
         {/**BLOGS**/}
           <Route path="/blogs" element={<BlogsPage />} />
-          <Route path="/blog/:blogId" element={<BlogPage />} /> 
+          <Route path="/blogs/:blogId" element={<BlogPage />} /> 
         {/**CATEGORIES PAGE**/}
           <Route path="/categories" element={<CategoriesPage />} />
-          <Route path = '/blog/:categoryId?' element={<BlogsPage/>}/>
+          <Route path = '/blogs/:categoryId?' element={<BlogsPage/>}/>
         {/**REGISTRATION**/}
           <Route path = '/login' element={<Login/>}/>
           <Route path = '/register' element={<Register/>}/>

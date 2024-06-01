@@ -9,11 +9,11 @@ export default function BlogItemText({ blogPost, headerFontSize }) {
     <div>
       <div style={{ display: "flex" }}>
         <p className="date-author-text">
-          hello
+          TODO{/* {blogPost.author.firstName} *TODO: */}
         </p>
         <div className="dot-divider"></div>
         <p className="date-author-text">
-         hello2
+         TODO2 {/**TODO: */}
         </p>
       </div>
       <p

@@ -9,7 +9,7 @@ const createBlog = async (blog) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(blog),
+    body: JSON.stringify(blog),   
   });
 
   if (!response.ok) {
@@ -25,7 +25,7 @@ const createBlog = async (blog) => {
 
   const blogsApiData = await response.json();
   return blogsApiData;
-};
+}; 
 
 
 //Fetch Blogs

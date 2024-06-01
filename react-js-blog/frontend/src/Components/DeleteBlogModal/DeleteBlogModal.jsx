@@ -1,10 +1,8 @@
-
-
-
-
 import React, { useMemo, useEffect, useState } from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { Modal } from "bootstrap";
 import PropTypes from "prop-types";
+
 
 export default function DeleteBlogModal({ deleteBlog, removeBlog, onClose }) {
   const [blog, setBlog] = useState();

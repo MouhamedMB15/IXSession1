@@ -2,7 +2,9 @@ import React from "react";
 import Categories from '../Categories/Categories';
 import { Link } from "react-router-dom";
 import { IoPersonCircleOutline } from "react-icons/io5";
-import '../../../node_modules/bootstrap';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 export default function Navbar() {
   return (
@@ -46,7 +48,7 @@ export default function Navbar() {
             </li>
 
             <li className="nav-item dropdown">
-              <button className="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style={{border: 'none', backgroundColor: 'transparent'}}>
+              <button className="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style={{border: 'none', backgroundColor: 'transparent', display: 'flex', alignItems: 'center' }}>
                 <IoPersonCircleOutline size={24} style={{display: 'flex', alignItems: 'center'}} />
               </button>
               <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">

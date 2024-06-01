@@ -1,7 +1,7 @@
 // Imports
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import './blogpage.css';
+
 import Navbar from '../../Navbar/Navbar';
 import Footer from '../../Footer/Footer';
 import Loading from '../../Loading/Loading';
@@ -9,21 +9,26 @@ import SuccessToast from '../../SuccessToast/SuccessToast';
 import ErrorToast from '../../ErrorToast/ErrorToast';
 import blogService from '../../../Services/BlogService';
 import Categories from '../../Categories/Categories';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 // Blog Page
 export default function BlogPage() {
+
+  //State Managers
   const { blogId } = useParams(); 
   const [blog, setBlog] = useState(null);
   const [isError, setIsError] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);   
   const [message, setMessage] = useState("");
 
+  //Fetch Data
   useEffect(() => {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        const response = await blogService.fetchBlogById(blogId);
+        const response = await blogService.fetchBlogByID(blogId);
         setBlog(response.data);
         setIsSuccess(true);
         setMessage(response.message);
@@ -62,9 +67,10 @@ export default function BlogPage() {
               <div className="my-5">
                 <h2 className="blog-post-title">{blog.title}</h2>
                 <p className="blog-post-meta">
-                  {blog.updatedAt.slice(0, 10)} by{" "}
-                  <Link to={"/profile/" + blog.author.id}>
-                    {blog.author.firstName} {blog.author.lastName}
+                  {blog.updatedAt ? blog.updatedAt.slice(0, 10) : 'Unknown date'} by{" "}
+                  {/**TODO: */}
+                  <Link to={blog.author ? `/profile/${blog.author.id}` : '#'}>
+                    {blog.author ? `${blog.author.firstName} ${blog.author.lastName}` : 'Unknown author'}
                   </Link>
                 </p>
                 <p>{blog.description}</p>
@@ -83,8 +89,8 @@ export default function BlogPage() {
             <div className="position-sticky my-5" style={{ top: "2rem" }}>
               <div className="p-4 mb-3 bg-light rounded">
                 <h4 className="fst-italic">About the author</h4>
-                <img src={blog.author.image} className="avatar" alt="..." />
-                <p>{blog.author.bio.substring(0, 100)}...</p>
+                <img src={blog.image} className="avatar" alt="..." />
+                {/* <p>{blog.bio.substring(0, 100)}...</p> TODO:*/}
               </div>
             </div>
           </div>

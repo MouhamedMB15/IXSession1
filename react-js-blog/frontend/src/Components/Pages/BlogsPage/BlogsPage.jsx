@@ -13,7 +13,7 @@ import CategoryList from "../../Categorylist/CategoryList";
 import AddEditBlogModal from "../../AddEditBlogModal/AddEditBlogModal";
 import DeleteBlogModal from "../../DeleteBlogModal/DeleteBlogModal";
 import BlogList from '../../BlogList/BlogList';
-import {Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 // Services
 import blogService from "../../../Services/BlogService";

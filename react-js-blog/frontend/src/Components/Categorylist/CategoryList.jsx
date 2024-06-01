@@ -2,10 +2,13 @@
 import React from 'react';
 import './categorylist.css';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import EditButtons from '../EditButtons/EditButtons';
 
 export default function CategoriesList({ categories, onEdit, onDelete }) {
+
+
   if (!categories && !categories?.length) {
     return null;
   }
@@ -14,13 +17,14 @@ export default function CategoriesList({ categories, onEdit, onDelete }) {
     <div className="category-list">
       {categories.map((category) => {
         return (
-          <button
+
+          <Link 
+
             key={category.id}
-            className="card"
-            style={{ borderRadius: "0px", border: "none" }}
-            onClick={() => {
-              console.log("TODO: Navigate to categories page");
-            }}
+            className='card'
+            style={{borderRadius: "0px", border: "none"}}
+            to={`/categories`}
+
           >
             <div
               className="card-body w-100"
@@ -47,7 +51,7 @@ export default function CategoriesList({ categories, onEdit, onDelete }) {
                 }}
               />
             )}
-          </button>
+          </Link>
         );
       })}
     </div>

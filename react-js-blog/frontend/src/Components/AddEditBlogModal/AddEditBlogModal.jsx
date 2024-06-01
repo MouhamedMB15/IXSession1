@@ -2,8 +2,10 @@
 
 //Imports
 import React, { useState, useEffect, useMemo } from "react";
-import { Modal } from "bootstrap";
 import PropTypes from 'prop-types';
+import 'bootstrap/dist/css/bootstrap.min.css'; //Boot Strap
+import { Modal } from "bootstrap";
+
 
 // Components:
 import Categories from '../Categories/Categories';

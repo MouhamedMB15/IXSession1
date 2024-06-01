@@ -1,35 +1,36 @@
-import React from "react";
+// Import necessary icons from react-icons
+import { FaEdit, FaTrashAlt } from 'react-icons/fa';
+import React from 'react';
 
+// EditButtons Component
 export default function EditButtons({ onEdit, onDelete }) {
   return (
     <>
-      <button
+      <button 
         style={{
           position: "absolute",
           top: "10px",
           right: "60px",
-          border: "none",
           zIndex: 1,
         }}
         type="button"
-        className="btn"
+        className="btn btn-primary"
         onClick={onEdit}
       >
-        <i className="bi bi-pencil-fill"></i>
+        <FaEdit />  
       </button>
       <button
         style={{
           position: "absolute",
           top: "10px",
-          right: "35px",
-          border: "none",
+          right: "10px",
           zIndex: 1,
         }}
         type="button"
-        className="btn"
+        className="btn btn-secondary"
         onClick={onDelete}
       >
-        <i className="bi bi-trash-fill"></i>
+        <FaTrashAlt /> 
       </button>
     </>
   );

@@ -1,32 +1,41 @@
-// Imports
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import BlogItemText from '../BlogItemText/BlogItemText';
 import EditButtons from '../EditButtons/EditButtons';
 import './blogitem.css';
 
+//Blog Item
 export default function BlogItem({
   index,
   blog,
-  imageOrientation,
+  imageOrientation, 
   onBlogEdit,
   onBlogDelete,
 }) {
+  // Navigate to blog
   const navigate = useNavigate();
   const navigateToBlog = () => {
+    console.log(`Navigating to blog with ID: ${blog.id}`);
+
+    //TODO: Fix selection params
     if (!onBlogEdit && !onBlogDelete) {
-      navigate(`/blog/${blog.id}`);
+
+      navigate(`/blogs/${blog.id}`);
+
+
     }
+      
+      
+  
   };
 
-  const EditButtonsContainer = () => {
-    return (
-      <EditButtons
-        onEdit={() => onBlogEdit(blog)}
-        onDelete={() => onBlogDelete(blog)}
-      />
-    );
-  };
+  const EditButtonsContainer = () => (
+    <EditButtons
+      onEdit={() => onBlogEdit(blog)}
+      onDelete={() => onBlogDelete(blog)}
+    />
+  );
+
   if (imageOrientation === "top") {
     return (
       <div key={index} className="card-1" onClick={navigateToBlog}>
