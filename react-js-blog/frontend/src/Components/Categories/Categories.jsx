@@ -6,9 +6,13 @@ import PropTypes from 'prop-types';
 
 
 
-
+ 
 export default function Categories({ categories }) {
-  if (!categories && !categories?.length) return null;
+  if (!categories || !categories?.length) {
+
+    return null; //NOTE: It displays null on blog item text
+ 
+  } 
   return (
     <div className="flex-wrap">
       {categories.map((category, index) => {
@@ -19,6 +23,7 @@ export default function Categories({ categories }) {
             style={{
               color: category.color,
               backgroundColor: category.color + "33",
+              
             }}
           >
             {category.title}

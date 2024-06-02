@@ -29,11 +29,16 @@ const getCategories = async (req, res) => {
 };
 
 const getCategoryById = async (req, res) => {
-  console.log(req.params.id);
-  res.status(200).json({
-    message: "Get category by ID!",
-    data: [],
-  });
+  try {
+    const category = await Category.findById(req.params.id);
+    if (category) {
+      res.status(200).json({ message: "Get category by ID!", data: category });
+    } else {
+      res.status(404).json({ message: "Category not found!", data: [] });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message, data: [] });
+  }
 };
 
 const updateCategoryByID = async (req, res) => {

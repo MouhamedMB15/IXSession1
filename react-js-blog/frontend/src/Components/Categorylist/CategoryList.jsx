@@ -22,7 +22,7 @@ export default function CategoriesList({ categories, onEdit, onDelete }) {
 
             key={category.id}
             className='card'
-            style={{borderRadius: "0px", border: "none"}}
+            style={{borderRadius: "0px", border: "none", textDecoration: "none"}}
             to={`/categories`}
 
           >
@@ -32,12 +32,13 @@ export default function CategoriesList({ categories, onEdit, onDelete }) {
                 backgroundColor: category.color + "33",
                 position: "relative",
                 zIndex: 0,
+                
               }}
             >
-              <h5 className="card-title">{category.title}</h5>
+              <h5 className="card-title" >{category.title}</h5>
             </div>
             <div className="card-body">
-              <p className="card-text">
+              <p className="card-text" >
                 {category.description.substring(1, 100)} ...
               </p>
             </div>
