@@ -19,8 +19,11 @@ import { Link } from 'react-router-dom';
 import blogService from "../../../Services/BlogService";
 import categoriesService from "../../../Services/CategoriesService";
 
+
 // Blog Posts
 export default function BlogsPage() {
+
+  const user = JSON.parse(localStorage.getItem("user"));
   const { categoryId } = useParams();
 
   const [blogs, setBlogs] = useState([]);
@@ -173,6 +176,7 @@ export default function BlogsPage() {
         </div>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <p className="page-subtitle">Blog Posts</p>
+          
           <button className="btn btn-outline-dark h-75" onClick={onBlogAdd}>
             ADD BLOG
           </button>

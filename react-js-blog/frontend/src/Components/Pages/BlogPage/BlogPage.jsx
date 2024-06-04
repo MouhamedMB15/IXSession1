@@ -68,7 +68,7 @@ export default function BlogPage() {
                 <h2 className="blog-post-title">{blog.title}</h2>
                 <p className="blog-post-meta">
                   {blog.updatedAt ? blog.updatedAt.slice(0, 10) : 'Unknown date'} by{" "}
-                  {/**TODO: */}
+                  
                   <Link to={blog.author ? `/profile/${blog.author.id}` : '#'}>
                     {blog.author ? `${blog.author.firstName} ${blog.author.lastName}` : 'Unknown author'}
                   </Link>
@@ -90,7 +90,7 @@ export default function BlogPage() {
               <div className="p-4 mb-3 bg-light rounded">
                 <h4 className="fst-italic">About the author</h4>
                 <img src={blog.image} className="avatar" alt="..." />
-                {/* <p>{blog.bio.substring(0, 100)}...</p> TODO:*/}
+                <p>{blog.author.bio.substring(0, 100)}...</p> 
               </div>
             </div>
           </div>

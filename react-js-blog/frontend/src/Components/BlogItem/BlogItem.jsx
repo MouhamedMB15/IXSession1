@@ -5,37 +5,32 @@ import EditButtons from '../EditButtons/EditButtons';
 import './blogitem.css';
 
 //Blog Item
+
 export default function BlogItem({
   index,
   blog,
-  imageOrientation, 
+  imageOrientation,
   onBlogEdit,
   onBlogDelete,
 }) {
-  // Navigate to blog
   const navigate = useNavigate();
   const navigateToBlog = () => {
-    console.log(`Navigating to blog with ID: ${blog.id}`);
-
-    //TODO: Fix selection params
+    console.log("Blogs ID Navigation: ", blog.id);
     if (!onBlogEdit && !onBlogDelete) {
-
+      console.log("OnClick Confirmation Blogs ID Navigation: ", blog.id);
+      
       navigate(`/blogs/${blog.id}`);
-
-
     }
-      
-      
-  
   };
 
-  const EditButtonsContainer = () => (
-    <EditButtons
-      onEdit={() => onBlogEdit(blog)}
-      onDelete={() => onBlogDelete(blog)}
-    />
-  );
-
+  const EditButtonsContainer = () => {
+    return (
+      <EditButtons
+        onEdit={() => onBlogEdit(blog)}
+        onDelete={() => onBlogDelete(blog)}
+      />
+    );
+  };
   if (imageOrientation === "top") {
     return (
       <div key={index} className="card-1" onClick={navigateToBlog}>

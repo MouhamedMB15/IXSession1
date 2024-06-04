@@ -3,75 +3,115 @@
 import React, { useState } from 'react';
 import './login.css';
 import Register from '../Register/Register';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import authService from '../../Services/authService';
+import ErrorToast from '../ErrorToast/ErrorToast';
+import SuccessToast from '../SuccessToast/SuccessToast';
 
 
 
 
 
 
-const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+export default function LoginPage() {
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission logic
-    console.log('Email:', email);
-    console.log('Password:', password);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const { email, password } = formData;
+
+  const onChange = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
   };
 
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      setLoading(true);
+      const res = await authService.login(formData);
+      setMessage(res.message);
+      setIsSuccess(true);
+      navigate("/home");
+      setLoading(false);
+    } catch (err) {
+      setMessage(err);
+      setIsError(true);
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
-    <div className=" container d-flex vh-100 vw-100 justify-content-center align-items-center">
-      <div className="col-10 col-sm-4">
-        <h2>Please Login</h2>
-        <form id="loginForm" onSubmit={handleSubmit}>
-          <div className="form-floating mb-3">
-            <input
-              type="email"
-              className="form-control"
-              id="email"
-              placeholder="name@mail.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-            <label htmlFor="email">Email address</label>
-            <div className="valid-feedback">Looks good!</div>
-          </div>
-          <div className="form-floating mb-3">
-            <input
-              type="password"
-              className="form-control"
-              id="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            <label htmlFor="password">Password</label>
-            <div className="valid-feedback">Looks good!</div>
-          </div>
-          <div>
-            <button type="submit" className="btn btn-primary w-100">
-              Sign In
+    <>
+      <div className="html-body">
+        <main className="form-signin">
+          <form onSubmit={onSubmit}>
+            <h1 className="h3 mb-3 fw-normal">Please login</h1>
+            <div className="form-floating">
+              <input
+                type="email"
+                className="form-control"
+                id="email"
+                name="email"
+                placeholder="name@example.com"
+                value={email}
+                onChange={onChange}
+              />
+              <label htmlFor="floatingInput">Email address</label>
+            </div>
+            <div className="form-floating">
+              <input
+                type="password"
+                className="form-control"
+                id="password"
+                name="password"
+                placeholder="Password"
+                value={password}
+                onChange={onChange}
+              />
+              <label htmlFor="password">Password</label>
+            </div>
+            <button className="w-100 btn btn-lg btn-primary" type="submit">
+              Sign in
             </button>
-            
-          </div>
-          <div className="my-2">
-            <Link to="/register">Register</Link>
-          </div>
-         
-        </form>
-        <div className="my-5 w-100 text-center">
-        <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
-          &copy; Blog App 2024
-        </Link>
+
+            <Link to="/register" className="my-5">
+              Register
+            </Link>
+            <p className="mt-5 mb-3 text-muted text-center">
+              The Blog App &copy; 2024
+            </p>
+          </form>
+        </main>
       </div>
-      </div>
-    </div>
+      <SuccessToast
+        show={isSuccess}
+        message={message}
+        onClose={() => {
+          setIsSuccess(false);
+        }}
+      />
+      <ErrorToast
+        show={isError}
+        message={message}
+        onClose={() => {
+          setIsError(false);
+        }}
+      />
+    </>
   );
-};
-
-export default Login;
-
+}

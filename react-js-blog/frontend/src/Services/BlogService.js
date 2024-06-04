@@ -8,6 +8,7 @@ const createBlog = async (blog) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: "Bearer " + JSON.parse(localStorage.getItem("user")).token, 
     },
     body: JSON.stringify(blog),   
   });
@@ -16,6 +17,7 @@ const createBlog = async (blog) => {
     try {
       let res = await response.json();
       throw res.message || JSON.stringify(res);
+      
     } catch (err) {
       console.log(err);
       const error = new Error("Something went wrong");
@@ -137,6 +139,7 @@ const updateBlog = async (blog) => {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
+      Authorization: "Bearer " + JSON.parse(localStorage.getItem("user")).token,
     },
     body: JSON.stringify(blog),
   });
@@ -153,8 +156,8 @@ const updateBlog = async (blog) => {
 
   const blogsApiData = await response.json();
   return blogsApiData;
-};
-
+}; 
+ 
 
 //Delete Blog
 const deleteBlog = async (id) => {
@@ -162,6 +165,7 @@ const deleteBlog = async (id) => {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
+      Authorization: "Bearer " + JSON.parse(localStorage.getItem("user")).token,
     },
   });
 

@@ -2,114 +2,150 @@
 //Imports
 import React, { useState } from 'react';
 import './register.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import authService from '../../Services/authService';
+import Loading from '../Loading/Loading';
+import ErrorToast from '../ErrorToast/ErrorToast';
+import SuccessToast from '../SuccessToast/SuccessToast';
   
 
 //Register
-const Register = () => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [bio, setBio] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+export default function RegisterPage() {
+  const navigate = useNavigate();
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission logic
-    console.log('First Name:', firstName);
-    console.log('Last Name:', lastName);
-    console.log('Bio:', bio);
-    console.log('Email:', email);
-    console.log('Password:', password);
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    bio: "",
+    email: "",
+    password: "",
+  });
+
+  const { firstName, lastName, bio, email, password } = formData;
+
+  const onChange = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
   };
 
-return (
-  <div className="d-flex vh-100 vw-100 justify-content-center align-items-center" id='register'>
-    <div className="col-10 col-sm-4">
-      <h2>Author Register</h2>
-      <form id="registerForm" onSubmit={handleSubmit}>
-        <div className="form-floating mb-3">
-          <input
-            type="text"
-            className="form-control"
-            id="firstName"
-            placeholder="Joe"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            required
-          />
-          <label htmlFor="firstName">First name</label>
-          <div className="valid-feedback">Looks good!</div>
-        </div>
-        <div className="form-floating mb-3">
-          <input
-            type="text"
-            className="form-control"
-            id="lastName"
-            placeholder="Soap"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            required
-          />
-          <label htmlFor="lastName">Last name</label>
-          <div className="valid-feedback">Looks good!</div>
-        </div>
-        <div className="form-floating mb-3">
-          <textarea
-            className="form-control"
-            id="bio"
-            placeholder="Tell us about yourself."
-            value={bio}
-            onChange={(e) => setBio(e.target.value)}
-            required
-          ></textarea>
-          <label htmlFor="bio">Bio</label>
-          <div className="valid-feedback">Looks good!</div>
-        </div>
-        <div className="form-floating mb-3">
-          <input
-            type="email"
-            className="form-control"
-            id="email"
-            placeholder="name@mail.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <label htmlFor="email">Email address</label>
-          <div className="valid-feedback">Looks good!</div>
-        </div>
-        <div className="form-floating mb-3">
-          <input
-            type="password"
-            className="form-control"
-            id="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          <label htmlFor="password">Password</label>
-          <div className="valid-feedback">Looks good!</div>
-        </div>
-        <div>
-          <button type="submit" className="btn btn-primary w-100">
-            Register
-          </button>
-        </div>
-        <div className="my-2">
-          <Link to="/login">Login</Link>
-        </div>
-        
-      </form>
-      <div className="my-5 w-100 text-center">
-    <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
-      &copy; Blog App 2024
-    </Link>
-  </div>
-    </div>
-  </div>
-);
-};
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      setLoading(true);
+      const res = await authService.register(formData);
+      setMessage(res.message);
+      setIsSuccess(true);
+      navigate("/home");
+      setLoading(false);
+    } catch (err) {
+      setMessage(err);
+      setIsError(true);
+      setLoading(false);
+    }
+  };
 
-export default Register;
+  if (loading) {
+    return <Loading />;
+  }
+
+  return (
+    <>
+      <div className="html-body">
+        <main className="form-signin">
+          <form onSubmit={onSubmit}>
+            <h1 className="h3 mb-3 fw-normal">Author registration</h1>
+            <div className="form-floating">
+              <input
+                type="text"
+                className="form-control"
+                id="firstName"
+                name="firstName"
+                placeholder="Joe"
+                value={firstName}
+                onChange={onChange}
+              />
+              <label htmlFor="firstName">First name</label>
+            </div>
+            <div className="form-floating">
+              <input
+                type="text"
+                className="form-control"
+                id="lastName"
+                name="lastName"
+                placeholder="Soap"
+                value={lastName}
+                onChange={onChange}
+              />
+              <label htmlFor="lastName">Last name</label>
+            </div>
+            <div className="form-floating">
+              <textarea
+                type="text"
+                className="form-control"
+                id="bio"
+                name="bio"
+                placeholder="name@example.com"
+                value={bio}
+                onChange={onChange}
+              />
+              <label htmlFor="bio">Bio</label>
+            </div>
+            <div className="form-floating">
+              <input
+                type="email"
+                className="form-control"
+                id="email"
+                name="email"
+                placeholder="..."
+                value={email}
+                onChange={onChange}
+              />
+              <label htmlFor="email">Email address</label>
+            </div>
+            <div className="form-floating">
+              <input
+                type="password"
+                className="form-control"
+                id="password"
+                name="password"
+                placeholder="Password"
+                value={password}
+                onChange={onChange}
+              />
+              <label htmlFor="password">Password</label>
+            </div>
+            <button className="w-100 btn btn-lg btn-primary" type="submit">
+              Register
+            </button>
+            <Link to="/login" className="my-5">
+              Login
+            </Link>
+            <p className="mt-5 mb-3 text-muted text-center">
+              The Blog App &copy; 2024
+            </p>
+          </form>
+        </main>
+      </div>
+      <SuccessToast
+        show={isSuccess}
+        message={message}
+        onClose={() => {
+          setIsSuccess(false);
+        }}
+      />
+      <ErrorToast
+        show={isError}
+        message={message}
+        onClose={() => {
+          setIsError(false);
+        }}
+      />
+    </>
+  );
+}

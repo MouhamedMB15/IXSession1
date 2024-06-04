@@ -9,11 +9,11 @@ export default function BlogItemText({ blogPost, headerFontSize }) {
     <div>
       <div style={{ display: "flex" }}>
         <p className="date-author-text">
-          TODO{/* {blogPost.author.firstName} *TODO: */}
+          {blogPost.author.firstName} 
         </p>
         <div className="dot-divider"></div>
         <p className="date-author-text">
-         TODO2 {/**TODO: */}
+         {blogPost.author.lastName}
         </p>
       </div>
       <p
@@ -28,6 +28,7 @@ export default function BlogItemText({ blogPost, headerFontSize }) {
       <p style={{ fontSize: "16px", color: "#667085", textAlign: "left" }}>
         {blogPost.description.substring(0, 100)}...
       </p>
+      {/* TODO: Fix Cateogires Not Displaing */}
       <Categories blogPost={blogPost?.categories} />
     </div>
   );
