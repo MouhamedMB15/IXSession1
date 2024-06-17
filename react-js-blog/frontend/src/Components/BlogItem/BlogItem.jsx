@@ -1,10 +1,13 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import BlogItemText from '../BlogItemText/BlogItemText';
-import EditButtons from '../EditButtons/EditButtons';
-import './blogitem.css';
+import React from "react";
 
-//Blog Item
+import { useNavigate } from "react-router-dom";
+
+import BlogItemText from "../BlogItemText/BlogItemText";
+import EditButtons from "../EditButtons/EditButtons";
+
+import PropTypes from "prop-types";
+
+import "./blogitem.css";
 
 export default function BlogItem({
   index,
@@ -13,13 +16,11 @@ export default function BlogItem({
   onBlogEdit,
   onBlogDelete,
 }) {
+  const user = JSON.parse(localStorage.getItem("user"));
   const navigate = useNavigate();
   const navigateToBlog = () => {
-    console.log("Blogs ID Navigation: ", blog.id);
-    if (!onBlogEdit && !onBlogDelete) {
-      console.log("OnClick Confirmation Blogs ID Navigation: ", blog.id);
-      
-      navigate(`/blogs/${blog.id}`);
+    if ((!user && !user?.token) || (!onBlogEdit && !onBlogDelete)) {
+      navigate(`/blog/${blog.id}`);
     }
   };
 
@@ -28,6 +29,7 @@ export default function BlogItem({
       <EditButtons
         onEdit={() => onBlogEdit(blog)}
         onDelete={() => onBlogDelete(blog)}
+        onNavigate={() => navigate(`/blog/${blog.id}`)}
       />
     );
   };
@@ -37,7 +39,9 @@ export default function BlogItem({
         <img src={blog.image} className="card-img-top" alt="..." />
         <div className="card-text-bottom">
           <BlogItemText blogPost={blog} headerFontSize="20px" />
-          {onBlogEdit && onBlogDelete ? <EditButtonsContainer /> : null}
+          {user && user.token && onBlogEdit && onBlogDelete ? (
+            <EditButtonsContainer />
+          ) : null}
         </div>
       </div>
     );
@@ -47,9 +51,19 @@ export default function BlogItem({
         <img src={blog.image} className="card-img-left" alt="..." />
         <div className="card-text-right">
           <BlogItemText blogPost={blog} headerFontSize="20px" />
-          {onBlogEdit && onBlogDelete ? <EditButtonsContainer /> : null}
+          {user && user.token && onBlogEdit && onBlogDelete ? (
+            <EditButtonsContainer />
+          ) : null}
         </div>
       </div>
     );
   }
 }
+
+BlogItem.propTypes = {
+  index: PropTypes.number.isRequired,
+  blog: PropTypes.object.isRequired,
+  imageOrientation: PropTypes.string.isRequired,
+  onBlogEdit: PropTypes.func,
+  onBlogDelete: PropTypes.func,
+};

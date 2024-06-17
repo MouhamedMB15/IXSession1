@@ -7,17 +7,16 @@ const createBlog = async (blog) => {
   const response = await fetch("http://localhost:8000/api/blogs", {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + JSON.parse(localStorage.getItem("user")).token, 
+      // "Content-Type": "application/json",
+      Authorization: "Bearer " + JSON.parse(localStorage.getItem("user")).token,
     },
-    body: JSON.stringify(blog),   
+    body: blog,
   });
 
   if (!response.ok) {
     try {
       let res = await response.json();
       throw res.message || JSON.stringify(res);
-      
     } catch (err) {
       console.log(err);
       const error = new Error("Something went wrong");
@@ -27,8 +26,7 @@ const createBlog = async (blog) => {
 
   const blogsApiData = await response.json();
   return blogsApiData;
-}; 
-
+};
 
 //Fetch Blogs
 const fetchBlogs = async () => {
@@ -135,13 +133,13 @@ const fetchBlogsByAuthorId = async (authorId) => {
 
 //Update Blog
 const updateBlog = async (blog) => {
-  const response = await fetch("http://localhost:8000/api/blogs/" + blog.id, {
+  const response = await fetch("http://localhost:8000/api/blogs/" + blog.get('id'), {
     method: "PUT",
     headers: {
-      "Content-Type": "application/json",
+      // "Content-Type": "application/json",
       Authorization: "Bearer " + JSON.parse(localStorage.getItem("user")).token,
     },
-    body: JSON.stringify(blog),
+    body: blog,
   });
   if (!response.ok) {
     try {
@@ -156,8 +154,7 @@ const updateBlog = async (blog) => {
 
   const blogsApiData = await response.json();
   return blogsApiData;
-}; 
- 
+};
 
 //Delete Blog
 const deleteBlog = async (id) => {

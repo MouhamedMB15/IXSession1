@@ -13,6 +13,7 @@ export default function CategoriesList({ categories, onEdit, onDelete }) {
     return null;
   }
 
+
   return (
     <div className="category-list">
       {categories.map((category) => {

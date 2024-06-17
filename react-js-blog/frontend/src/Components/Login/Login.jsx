@@ -1,25 +1,22 @@
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
+import SuccessToast from "../../Components/SuccessToast/SuccessToast";
+import ErrorToast from "../../Components/ErrorToast/ErrorToast";
+import Loading from "../../Components/Loading/Loading";
 
-import React, { useState } from 'react';
-import './login.css';
-import Register from '../Register/Register';
-import { Link, useNavigate } from 'react-router-dom';
-import authService from '../../Services/authService';
-import ErrorToast from '../ErrorToast/ErrorToast';
-import SuccessToast from '../SuccessToast/SuccessToast';
+import "./login.css";
 
-
-
-
-
+import { login, resetSuccessAndError } from "../../features/authSlice";
 
 export default function LoginPage() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const [message, setMessage] = useState("");
-  const [loading, setLoading] = useState(false);
+  const { isSuccess, isError, message, isLoading } = useSelector(
+    (state) => state.auth
+  );
 
   const [formData, setFormData] = useState({
     email: "",
@@ -38,20 +35,14 @@ export default function LoginPage() {
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      setLoading(true);
-      const res = await authService.login(formData);
-      setMessage(res.message);
-      setIsSuccess(true);
+      dispatch(login(formData));
       navigate("/home");
-      setLoading(false);
     } catch (err) {
-      setMessage(err);
-      setIsError(true);
-      setLoading(false);
+      console.log(err);
     }
   };
 
-  if (loading) {
+  if (isLoading) {
     return <Loading />;
   }
 
@@ -102,14 +93,14 @@ export default function LoginPage() {
         show={isSuccess}
         message={message}
         onClose={() => {
-          setIsSuccess(false);
+          dispatch(resetSuccessAndError());
         }}
       />
       <ErrorToast
         show={isError}
         message={message}
         onClose={() => {
-          setIsError(false);
+          dispatch(resetSuccessAndError());
         }}
       />
     </>

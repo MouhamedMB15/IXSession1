@@ -18,6 +18,11 @@ import ErrorToast from '../../ErrorToast/ErrorToast';
 import BlogService from '../../../Services/BlogService';
 import categoriesService from '../../../Services/CategoriesService';
 
+//Redux Action
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchBlogs, reset as resetBlogs } from '../../../features/blogsSlice';
+import { fetchCategories, reset as resetCategory } from '../../../features/categoriesSlice';
+
 
 
 // Week 1: Import the blogPosts and categories from the dummy-data.json file
@@ -35,8 +40,8 @@ export default function HomePage() {
   //New State
 
   //Blogs & Cateogires
-  const [blogs, setBlogs] = useState([]);
-  const [categories, setCategories] = useState([]);
+  // const [blogs, setBlogs] = useState([]);
+  // const [categories, setCategories] = useState([]);
 
   //Modals
   const [isError, setIsError] = useState(false);
@@ -44,41 +49,42 @@ export default function HomePage() {
   const [isLoading, setIsLoading] = useState(true);
   const [message, setMessage] = useState("");
 
+  //Dispatch 
+  const dispatch = useDispatch();
 
-  //v
+  //Blogs
+  const {
+    blogs,
+    isError: isBlogsError,
+    isSuccess: isBlogsSuccess,
+    isLoading: isLoadingBlogs,
+    message: blogsMessage,
+  } = useSelector((state) => state.blogs);
+
+  //Cateogires
+  const {
+    categories,
+    isError: isCategoriesError,
+    isSuccess: isCategoriesSuccess,
+    isLoading: isLoadingCategories,
+    message: categoriesMessage,
+  } = useSelector((state) => state.categories);
+
   useEffect(() => {
-    const fetchBlogs = async () => {
-      try {
-        const blogsRes = await BlogService.fetchBlogs();
-        const categoryRes = await categoriesService.fetchCategories();
-        setBlogs(blogsRes.data);
-        setCategories(categoryRes.data);
-        
-        setIsLoading(false);
-        setIsSuccess(true);
-        setMessage("Data fetched successfully!");
-      } catch (err) {
-        console.log(err);
-      }
+    dispatch(fetchCategories());
+    dispatch(fetchBlogs());
+    return () => {
+      dispatch(resetBlogs());
+      dispatch(resetCategory());
     };
-    fetchBlogs();
-  }, []);
+  }, [dispatch]);
 
-  //Reset Sucess
-  const resetSuccess = () => {
-    setIsSuccess(false);
-    setMessage("");
+  if (isLoadingCategories || isLoadingBlogs) {
+    return <Loading/>
   }
 
-  //Reset Error
-   const resetError = () => {
-    setIsError(false);
-    setMessage("");
-  }
 
-  if (isLoading) {
-    return <Loading />;
-  }
+
 
 
 
@@ -95,14 +101,20 @@ export default function HomePage() {
       </div>
 
       <SuccessToast
-        show={isSuccess}
-        message={message}
-        onClose={resetSuccess}
+        show={isBlogsSuccess || isCategoriesSuccess}
+        message={blogsMessage || categoriesMessage}
+        onClose={() => {
+          dispatch(resetBlogs());
+          dispatch(resetCategory());
+        }}
       />
       <ErrorToast
-        show={isError}
-        message={message}
-        onClose={resetError}
+        show={isBlogsError || isCategoriesError}
+        message={blogsMessage || categoriesMessage}
+        onClose={() => {
+          dispatch(resetBlogs());
+          dispatch(resetCategory());
+        }}
       />
     </>
   );

@@ -5,6 +5,7 @@ const router = express.Router();
 const blogController = require("../controllers/blogs");
 
 const {protect} = require("../middleware/authMiddleware");
+const {upload} = require("../middleware/mutler");
 
 const logMiddleware = (req, res, next) => {
   console.log("I am a middleware");
@@ -19,6 +20,10 @@ const logMiddleware = (req, res, next) => {
  * POST /api/blogs
  */
 router.post("/", logMiddleware, protect, (req, res) => {
+  blogController.createBlogs(req, res);
+});
+//Upload IMG
+router.post("/", protect, upload.single("image"), (req, res) => {
   blogController.createBlogs(req, res);
 });
 
@@ -52,12 +57,18 @@ router.put("/:id", protect, (req, res) => {
   blogController.updateBlogByID(req, res);
 });
 
+//put img
+router.put("/:id", protect, upload.single("image"), (req, res) => {
+  blogController.updateBlogByID(req, res);
+});
 /**
  * DELETE /api/blogs/
  */
 router.delete("/:id", (req, res) => {
   blogController.deleteBlogByID(req, res);
 });
+
+
 
 module.exports = router;
 
