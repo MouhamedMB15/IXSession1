@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -11,12 +11,18 @@ import "./login.css";
 import { login, resetSuccessAndError } from "../../features/authSlice";
 
 export default function LoginPage() {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const { isSuccess, isError, message, isLoading } = useSelector(
+  const { user, isError, isSuccess, isLoading, message } = useSelector(
     (state) => state.auth
   );
+
+  useEffect(() => {
+    if (isSuccess || user) {
+      navigate("/home");
+    }
+  }, [user, isError, isSuccess, isLoading, message, navigate]);
 
   const [formData, setFormData] = useState({
     email: "",
@@ -34,16 +40,11 @@ export default function LoginPage() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    try {
-      dispatch(login(formData));
-      navigate("/home");
-    } catch (err) {
-      console.log(err);
-    }
+    dispatch(login(formData));
   };
 
   if (isLoading) {
-    return <Loading />;
+    return <div>Loading...</div>;
   }
 
   return (

@@ -1,58 +1,20 @@
+.cover-img {
+  object-fit: cover;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
 
+.author {
+}
+.author:hover {
+  cursor: pointer;
+}
 
-.blog-page {
-    padding: 20px;
-  }
-
-  .header {
-    border-top: 1px solid #9fa2a7;
-    border-bottom: 1px solid #9fa2a7 ;
-    padding: 11px;
-  }
-  
-  .blog-header {
-    text-align: center;
-  }
-  
-  .blog-image {
-    max-width: 100%;
-    height: auto;
-  }
-  
-  .blog-content {
-    margin-top: 20px;
-  }
-  
-  .blog-content h1 {
-    font-size: 2em;
-    margin-bottom: 10px;
-  }
-  
-  .blog-date {
-    color: #9fa2a7;
-    font-style: italic;
-    margin-bottom: 20px;
-  }
-  
-  .blog-section {
-    margin-bottom: 20px;
-  }
-  
-  .blog-footer {
-    margin-top: 40px;
-    border-top: 1px solid #ddd;
-    padding-top: 20px;
-  }
-  
-  .about-author {
-    text-align: center;
-  }
-  
-  .author-image {
-    border-radius: 50%;
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    margin-bottom: 10px;
-  }
-  
+.avatar {
+  display: block;
+  border-radius: 50%;
+  width: 50%;
+  margin: 16px auto;
+}

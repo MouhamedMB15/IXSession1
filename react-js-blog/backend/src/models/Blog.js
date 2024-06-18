@@ -1,5 +1,3 @@
-
-
 const mongoose = require("mongoose");
 
 const blogSchema = new mongoose.Schema(
@@ -33,6 +31,7 @@ const blogSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
 // Add a toJSON method to the schema to control the output of blog instances
 blogSchema.method("toJSON", function () {
   const {

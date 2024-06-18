@@ -1,16 +1,14 @@
 import React from "react";
-import Categories from '../Categories/Categories';
-import { Link } from "react-router-dom";
-import { IoPersonCircleOutline } from "react-icons/io5";
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Navbar() {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const navigate = useNavigate();
   return (
     <nav className="navbar navbar-expand-lg">
       <div style={{ margin: "0px 5%" }} className="container-fluid">
-        <Link className="navbar-brand" to="/">
+        <Link className="navbar-brand" to="/home">
           iX Software Engineering Blog
         </Link>
         <button
@@ -27,35 +25,61 @@ export default function Navbar() {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
-              <Link className="nav-link active" to="/">
+              <Link className="nav-link active" aria-current="page" to="/home">
                 Home
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/categories">
-                Categories
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/blogs">
+              <Link className="nav-link active" aria-current="page" to="/blogs">
                 Blogs
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/about">
-                About
+              <Link
+                className="nav-link active"
+                aria-current="page"
+                to="/categories"
+              >
+                Categories
               </Link>
             </li>
-
-            <li className="nav-item dropdown">
-              <button className="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style={{border: 'none', backgroundColor: 'transparent', display: 'flex', alignItems: 'center' }}>
-                <IoPersonCircleOutline size={24} style={{display: 'flex', alignItems: 'center'}} />
-              </button>
-              <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><Link className="dropdown-item" to="/login">Login</Link></li>
-                <li><Link className="dropdown-item" to="/register">Sign Up</Link></li>
-              </ul>
-            </li>
+            {user && user?.token ? (
+              <li className="nav-item">
+                <div className="dropdown">
+                  <button
+                    className="btn dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <i className="bi bi-person-circle"></i>
+                  </button>
+                  <ul className="dropdown-menu">
+                    <li>
+                      <Link
+                        className=" dropdown-item"
+                        aria-current="page"
+                        to={"/profile/" + user._id}
+                      >
+                        Profile
+                      </Link>
+                    </li>
+                    <li>
+                      <button
+                        style={{ cursor: "pointer" }}
+                        className="dropdown-item"
+                        onClick={() => {
+                          localStorage.removeItem("user");
+                          navigate("/login");
+                        }}
+                      >
+                        Logout
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+            ) : null}
           </ul>
         </div>
       </div>

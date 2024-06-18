@@ -1,7 +1,6 @@
+// Imports
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-
 import categoryService from "../Services/CategoriesService";
-
 const initialState = {
   addCategory: null,
   editCategory: null,

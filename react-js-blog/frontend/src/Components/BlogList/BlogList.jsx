@@ -10,7 +10,6 @@ import { useDispatch } from "react-redux";
 //Blog List
 
 import { setEditBlog, setDeleteBlog } from "../../features/blogsSlice";
-
 export default function BlogList({ blogs }) {
   const dispatch = useDispatch();
 

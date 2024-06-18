@@ -1,5 +1,3 @@
-
-
 const Category = require("../models/Category");
 
 const createCategory = async (req, res) => {

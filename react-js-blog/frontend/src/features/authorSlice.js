@@ -2,8 +2,8 @@
 
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import authService from './authSlice';
-import blogService from './blogsSlice';
+import authService from '../Services/authService';
+import blogService from '../Services/BlogService';
 
 const initialState = {
   author: null,

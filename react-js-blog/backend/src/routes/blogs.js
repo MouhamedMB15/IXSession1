@@ -1,29 +1,21 @@
-
-
-const express = require('express');
+const express = require("express");
 const router = express.Router();
+
 const blogController = require("../controllers/blogs");
 
-const {protect} = require("../middleware/authMiddleware");
-const {upload} = require("../middleware/mutler");
+const { protect } = require("../middleware/authMiddleware");
+const { upload } = require("../middleware/mutler");
 
 const logMiddleware = (req, res, next) => {
   console.log("I am a middleware");
-  console.log(req.body);
+  console.log(req.bogy);
   next();
 };
-
-
-
 
 /**
  * POST /api/blogs
  */
-router.post("/", logMiddleware, protect, (req, res) => {
-  blogController.createBlogs(req, res);
-});
-//Upload IMG
-router.post("/", protect, upload.single("image"), (req, res) => {
+router.post("/", logMiddleware, protect, upload.single("image"), (req, res) => {
   blogController.createBlogs(req, res);
 });
 
@@ -51,67 +43,25 @@ router.get("/categories/:id", (req, res) => {
 });
 
 /**
- * Put /api/blogs/
+ * Get blogs by authorId
+ * GET /api/blogs/author/:id
  */
-router.put("/:id", protect, (req, res) => {
-  blogController.updateBlogByID(req, res);
+router.get("/author/:id", (req, res) => {
+  blogController.getBlogsByAuthorID(req, res);
 });
 
-//put img
+/**
+ * Put /api/blogs/
+ */
 router.put("/:id", protect, upload.single("image"), (req, res) => {
   blogController.updateBlogByID(req, res);
 });
+
 /**
  * DELETE /api/blogs/
  */
-router.delete("/:id", (req, res) => {
+router.delete("/:id", protect, (req, res) => {
   blogController.deleteBlogByID(req, res);
 });
 
-
-
 module.exports = router;
-
-
-
-// const express = require("express");
-// const router = express.Router();
-// const {
-//   createBlogs,
-//   getBlogs,
-//   getBlogById,
-//   getBlogsByCategoryID,
-//   updateBlogByID,
-//   deleteBlogByID,
-// } = require("../controllers/blogs");
-// const { protect } = require("../middleware/authMiddleware");
-
-// //Create Blogs
-// router.post("/", protect, (req, res) => {
-//   createBlogs(req, res);
-// });
-
-// //Get Blogs
-// router.get("/", (req, res) => {
-//   getBlogs(req, res);
-// });
-// //Get Blog By ID
-// router.get("/:id", (req, res) => {
-//   getBlogById(req, res);
-// });
-
-// //Get Blog By Cateogry ID
-// router.get("/categories/:id", protect, (req, res) => {
-//   getBlogsByCategoryID(req, res);
-// });
-// //Update Blog By ID 
-// router.put("/:id", protect, (req, res) => {
-//   updateBlogByID(req, res);
-// });
-
-// //Delete Blog By ID
-// router.delete("/:id", (req, res) => {
-//   deleteBlogByID(req, res);
-// });
-
-// module.exports = router;

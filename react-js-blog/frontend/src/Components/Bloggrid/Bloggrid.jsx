@@ -12,7 +12,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 export default function BlogGrid({ blogPosts }) {
   if (!blogPosts || !blogPosts.length) {
     return null;
-  } 
+  }
   return (
     <>
       <div className="blog-grid-container py-2 w-100">

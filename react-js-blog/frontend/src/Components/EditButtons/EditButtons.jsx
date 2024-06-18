@@ -35,3 +35,5 @@ export default function EditButtons({ onEdit, onDelete }) {
     </>
   );
 }
+
+

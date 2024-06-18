@@ -10,9 +10,11 @@ import Login from './Components/Login/Login';
 import Register from './Components/Register/Register';
 import BlogPage from './Components/Pages/BlogPage/BlogPage';
 import AboutPage from './Components/Pages/AboutPage/AboutPage';
+import ProfilePage from './Components/Pages/ProfilePage/ProfilePage';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { BrowserRouter as Router, Route, Routes } from  'react-router-dom';
+
 
 
 
@@ -28,7 +30,7 @@ function App() {
           <Route path="/" element={<Homepage />} />
         {/**BLOGS**/}
           <Route path="/blogs" element={<BlogsPage />} />
-          <Route path="/blogs/:blogId" element={<BlogPage />} /> 
+          <Route path="/blog/:blogId" element={<BlogPage />} /> 
         {/**CATEGORIES PAGE**/}
           <Route path="/categories" element={<CategoriesPage />} />
           <Route path = '/blogs/:categoryId?' element={<BlogsPage/>}/>
@@ -37,6 +39,9 @@ function App() {
           <Route path = '/register' element={<Register/>}/>
         {/*ABOUT**/}
           <Route path = '/about' element={<AboutPage/>}/>
+
+        {/**PROFILE PAGE */}
+          <Route path = '/profile/:authorId' element={<ProfilePage/>}/>
           
           
         </Routes>

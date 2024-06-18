@@ -16,18 +16,23 @@ import DeleteBlogModal from "../../DeleteBlogModal/DeleteBlogModal";
 
 import "./blogspage.css";
 
+//Blogs Slice
 import {
   setAddBlog,
   fetchBlogsByCategoryId,
   resetSuccessAndError as resetBlog,
 } from "../../../features/blogsSlice";
+
+//Cateogires Slice
 import {
   fetchCategories,
   resetSuccessAndError as resetCategory,
-} from "../../../features/categoriesSlice";
+}from "../../../features/categoriesSlice";
 
+
+//Blogs Page
 export default function BlogsPage() {
-  const user = useSelector((state) => state.auth.user);
+  const user = JSON.parse(localStorage.getItem("user"));
   const dispatch = useDispatch();
   const { categoryId } = useParams();
 
@@ -49,10 +54,6 @@ export default function BlogsPage() {
   useEffect(() => {
     dispatch(fetchCategories());
     dispatch(fetchBlogsByCategoryId(categoryId));
-    return () => {
-      dispatch(resetBlog());
-      dispatch(resetCategory());
-    };
   }, [categoryId]);
 
   const onBlogAdd = () => {

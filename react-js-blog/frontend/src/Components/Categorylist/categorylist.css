@@ -9,11 +9,11 @@
   }
   
   .card {
-    border-radius: 7px;
+    
   }
   .card-body {
     width: 100%;
-    border-radius: 7px;
+    
   }
   .card:hover {
     cursor: pointer;
