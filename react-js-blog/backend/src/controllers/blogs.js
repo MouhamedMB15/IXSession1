@@ -3,6 +3,7 @@ const Blog = require('../models/Blog');
 
 const { uploadToFirebaseStorage } = require("../services/google-cloud");
 
+//create Blogs
 const createBlogs = async (req, res) => {
   try {
     console.log(req.body);
@@ -34,6 +35,8 @@ const createBlogs = async (req, res) => {
     res.status(500).json({ message: error.message, data: {} });
   }
 };
+
+//get Blogs
 const getBlogs = async (req, res) => {
   try {
     const blogs = await Blog.find()
@@ -48,6 +51,7 @@ const getBlogs = async (req, res) => {
   }
 };
 
+//get Blog by ID
 const getBlogById = async (req, res) => {
   try {
     console.log(req.params.id);
@@ -66,6 +70,7 @@ const getBlogById = async (req, res) => {
   }
 };
 
+//get blogs by cateogiry ID
 const getBlogsByCategoryID = async (req, res) => {
   try {
     console.log(req.params.id);
@@ -87,6 +92,7 @@ const getBlogsByCategoryID = async (req, res) => {
   }
 };
 
+//get blogs by author Id
 const getBlogsByAuthorID = async (req, res) => {
   try {
     console.log(req.params.id);
@@ -108,6 +114,7 @@ const getBlogsByAuthorID = async (req, res) => {
   }
 };
 
+//update blog by id
 const updateBlogByID = async (req, res) => {
   try {
     let imageURL = "";
@@ -146,6 +153,7 @@ const updateBlogByID = async (req, res) => {
   }
 };
 
+//delete blog by id
 const deleteBlogByID = async (req, res) => {
   try {
     const blogDB = await Blog.findById(req.params.id);

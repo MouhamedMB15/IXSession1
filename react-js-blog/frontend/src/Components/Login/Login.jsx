@@ -1,3 +1,5 @@
+
+//Import
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,6 +12,7 @@ import "./login.css";
 
 import { login, resetSuccessAndError } from "../../features/authSlice";
 
+//Login page
 export default function LoginPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -85,7 +88,9 @@ export default function LoginPage() {
               Register
             </Link>
             <p className="mt-5 mb-3 text-muted text-center">
-              The Blog App &copy; 2024
+              <Link to="/" className="text-decoration-none">
+                The Blog App &copy; 2024
+              </Link>
             </p>
           </form>
         </main>

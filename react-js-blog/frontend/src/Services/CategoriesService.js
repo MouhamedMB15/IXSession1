@@ -1,3 +1,5 @@
+
+//Create Cateogry
 const createCategory = async (category) => {
   const response = await fetch("http://localhost:8000/api/categories", {
     method: "POST",
@@ -23,6 +25,7 @@ const createCategory = async (category) => {
   return categoriesApiData;
 };
 
+//fetch Cateogires
 const fetchCategories = async () => {
   const response = await fetch("http://localhost:8000/api/categories", {
     method: "GET",
@@ -46,6 +49,7 @@ const fetchCategories = async () => {
   return categoriesApiData;
 };
 
+//Update Cateogry
 const updateCategory = async (category) => {
   const response = await fetch(
     "http://localhost:8000/api/categories/" + category.id,
@@ -75,6 +79,7 @@ const updateCategory = async (category) => {
   return categoriesApiData;
 };
 
+//Delete cateory
 const deleteCategory = async (id) => {
   const response = await fetch("http://localhost:8000/api/categories/" + id, {
     method: "DELETE",

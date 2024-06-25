@@ -27,6 +27,7 @@ export const fetchAuthor = createAsyncThunk(
   }
 );
 
+//fetch blogs by author id
 export const fetchBlogsByAuthorId = createAsyncThunk(
   "blogs/fetchBlogsByAuthorId",
   async (authorId, thunkAPI) => {
@@ -38,7 +39,7 @@ export const fetchBlogsByAuthorId = createAsyncThunk(
     }
   }
 );
-
+//Auth Slice
 export const authSlice = createSlice({
   name: "author",
   initialState,

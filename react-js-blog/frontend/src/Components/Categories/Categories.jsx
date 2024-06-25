@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 export default function Categories({ categories }) {
   if (!categories || !categories?.length) {
 
-    return null; //NOTE: It displays null on blog item text
+    return null; 
  
   } 
   return (

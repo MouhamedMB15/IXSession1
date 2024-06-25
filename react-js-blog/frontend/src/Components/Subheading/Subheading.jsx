@@ -1,6 +1,7 @@
 
 //Imports
 import React from 'react';
+import './subheading.css';
 
 
 //Sub Heading

@@ -7,7 +7,7 @@ import './heading.css';
 export default function Heading(){
     return (
         <p className='page-title'>
-            THE BLOG
+            SWE BLOG
         </p>
     )
 }

@@ -4,6 +4,8 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link } from "react-router-dom";
 
+import "./blogspage.css";
+
 import Navbar from "../../Navbar/Navbar";
 import Heading from "../../Heading/Heading";
 import BlogList from "../../BlogList/BlogList";
@@ -14,7 +16,6 @@ import SuccessToast from "../../SuccessToast/SuccessToast";
 import ErrorToast from "../../ErrorToast/ErrorToast";
 import DeleteBlogModal from "../../DeleteBlogModal/DeleteBlogModal";
 
-import "./blogspage.css";
 
 //Blogs Slice
 import {
@@ -126,14 +127,15 @@ export default function BlogsPage() {
           <CategoriesList categoryId={categoryId} />
         </div>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <p className="page-subtitle">Blog Posts</p>
+          <Link to='/blogs' className="page-subtitle">Blog Posts</Link>
+        
           <AddButton />
         </div>
         <BlogList blogs={blogs} />
         <AddEditBlogModal />
         <DeleteBlogModal />
       </div>
-      <Footer />
+      <Footer />  
       <SuccessToast
         show={isBlogSuccess || isCategoriesSuccess}
         message={blogsMessage || categoriesMessage}

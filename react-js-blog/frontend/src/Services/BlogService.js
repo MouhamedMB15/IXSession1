@@ -1,3 +1,5 @@
+
+//Create Blog
 const createBlog = async (blog) => {
   const response = await fetch("http://localhost:8000/api/blogs", {
     method: "POST",
@@ -23,6 +25,7 @@ const createBlog = async (blog) => {
   return blogsApiData;
 };
 
+//Fetch Blogs
 const fetchBlogs = async () => {
   const response = await fetch("http://localhost:8000/api/blogs", {
     method: "GET",
@@ -46,6 +49,7 @@ const fetchBlogs = async () => {
   return blogsApiData;
 };
 
+//Fetch Blogs by id
 const fetchBlogByID = async (id) => {
   const response = await fetch("http://localhost:8000/api/blogs/" + id, {
     method: "GET",
@@ -68,6 +72,7 @@ const fetchBlogByID = async (id) => {
   return blogsApiData;
 };
 
+//fetch blogs by cateogry ID
 const fetchBlogsByCategoryId = async (categoryId) => {
   const response = await fetch(
     "http://localhost:8000/api/blogs/categories/" + categoryId,
@@ -93,6 +98,7 @@ const fetchBlogsByCategoryId = async (categoryId) => {
   return blogsApiData;
 };
 
+//fetch blogs by Author ID
 const fetchBlogsByAuthorId = async (authorId) => {
   const response = await fetch(
     "http://localhost:8000/api/blogs/author/" + authorId,
@@ -118,6 +124,7 @@ const fetchBlogsByAuthorId = async (authorId) => {
   return blogsApiData;
 };
 
+//Update Blog
 const updateBlog = async (blog) => {
   const response = await fetch(
     "http://localhost:8000/api/blogs/" + blog.get("id"),
@@ -146,6 +153,7 @@ const updateBlog = async (blog) => {
   return blogsApiData;
 };
 
+//Delete Blog
 const deleteBlog = async (id) => {
   const response = await fetch("http://localhost:8000/api/blogs/" + id, {
     method: "DELETE",
@@ -170,6 +178,7 @@ const deleteBlog = async (id) => {
   return blogsApiData;
 };
 
+//blog Service
 const blogService = {
   createBlog,
   fetchBlogs,

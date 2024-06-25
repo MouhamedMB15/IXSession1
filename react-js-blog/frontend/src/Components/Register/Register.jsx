@@ -1,15 +1,14 @@
-
+//Imports
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-
 import "./register.css";
 import {register, reset} from '../../features/authSlice';
-
 import SuccessToast from "../../Components/SuccessToast/SuccessToast";
 import ErrorToast from "../../Components/ErrorToast/ErrorToast";
 import Loading from "../../Components/Loading/Loading";
 
+//Register Page
 export default function RegisterPage() {
   const [formData, setFormData] = useState({
     firstName: "",
@@ -118,7 +117,9 @@ export default function RegisterPage() {
               Login
             </Link>
             <p className="mt-5 mb-3 text-muted text-center">
-              The Blog App &copy; 2024
+              <Link to="/" className="text-decoration-none">
+                The Blog App &copy; 2024
+              </Link>
             </p>
           </form>
         </main>

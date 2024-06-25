@@ -1,7 +1,10 @@
+
+//Imports
 import React from "react";
 
 import { Link, useNavigate } from "react-router-dom";
 
+//Nav Bar
 export default function Navbar() {
   const user = JSON.parse(localStorage.getItem("user"));
   const navigate = useNavigate();
@@ -9,7 +12,7 @@ export default function Navbar() {
     <nav className="navbar navbar-expand-lg">
       <div style={{ margin: "0px 5%" }} className="container-fluid">
         <Link className="navbar-brand" to="/home">
-          iX Software Engineering Blog
+          Software Engineering Blog
         </Link>
         <button
           className="navbar-toggler"

@@ -1,8 +1,8 @@
 
-
+//Import 
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import blogService from "../Services/BlogService";
-
+//intial state
 const initialState = {
   addBlog: null,
   editBlog: null,
@@ -15,6 +15,7 @@ const initialState = {
   message: "",
 };
 
+//create blog
 export const createBlog = createAsyncThunk(
   "blogs/createBlog",
   async (blog, thunkAPI) => {
@@ -27,6 +28,7 @@ export const createBlog = createAsyncThunk(
   }
 );
 
+//fetch blogs
 export const fetchBlogs = createAsyncThunk(
   "blogs/fetchBlogs",
   async (_, thunkAPI) => {
@@ -39,6 +41,7 @@ export const fetchBlogs = createAsyncThunk(
   }
 );
 
+//fetch blogs by cateogory id
 export const fetchBlogsByCategoryId = createAsyncThunk(
   "blogs/fetchBlogsByCategoryId",
   async (categoryId, thunkAPI) => {
@@ -51,6 +54,7 @@ export const fetchBlogsByCategoryId = createAsyncThunk(
   }
 );
 
+//fetch blog by id
 export const fetchBlogById = createAsyncThunk(
   "blogs/fetchBlogById",
   async (blogId, thunkAPI) => {
@@ -63,6 +67,7 @@ export const fetchBlogById = createAsyncThunk(
   }
 );
 
+//update blog
 export const updateBlog = createAsyncThunk(
   "blogs/updateBlog",
   async (blog, thunkAPI) => {
@@ -75,6 +80,7 @@ export const updateBlog = createAsyncThunk(
   }
 );
 
+//delete blogs by id
 export const deleteBlogById = createAsyncThunk(
   "blogs/deleteBlogById",
   async (blogId, thunkAPI) => {
@@ -86,7 +92,7 @@ export const deleteBlogById = createAsyncThunk(
     }
   }
 );
-
+  
 export const blogsSlice = createSlice({
   name: "blogs",
   initialState,

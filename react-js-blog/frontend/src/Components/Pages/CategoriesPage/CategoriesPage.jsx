@@ -20,7 +20,7 @@ import DeleteCategoryModal from '../../DeleteCategoryModal/DeleteCategoryModal';
 // Styles
 
 
-// Week 1: Import the blogPosts and categories from the dummy-data.json file
+// dummy data
 // import data from '../../../dummy-data.json';
 // const categories = data.categories;
 

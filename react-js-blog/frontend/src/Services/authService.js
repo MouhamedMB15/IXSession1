@@ -1,5 +1,5 @@
 
-
+//Register
 const register = async (userData) => {
   const response = await fetch("http://localhost:8000/api/auth/register", {
     method: "POST",
@@ -25,6 +25,7 @@ const register = async (userData) => {
   return responseData;
 };
 
+//Login
 const login = async (userData) => {
   const response = await fetch("http://localhost:8000/api/auth/login", {
     method: "POST",
@@ -50,6 +51,7 @@ const login = async (userData) => {
   return responseData;
 };
 
+//get User
 const getUser = async (authorId) => {
   const response = await fetch(
     `http://localhost:8000/api/auth/user/${authorId}`
@@ -64,6 +66,7 @@ const getUser = async (authorId) => {
   return responseData;
 };
 
+//Update User
 const updateUser = async (userId, userData) => {
   const response = await fetch(
     `http://localhost:8000/api/auth/user/${userId}`,
@@ -87,6 +90,7 @@ const updateUser = async (userId, userData) => {
   return responseData;
 };
 
+//Auth Service
 const authService = {
   register,
   login,

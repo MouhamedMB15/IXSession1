@@ -12,6 +12,7 @@ const initialState = {
   message: "",
 };
 
+//fetch cateogires
 export const fetchCategories = createAsyncThunk(
   "categories/fetchCategories",
   async (_, thunkAPI) => {
@@ -23,7 +24,7 @@ export const fetchCategories = createAsyncThunk(
     }
   }
 );
-
+//cateogires slice
 export const categoriesSlice = createSlice({
   name: "categories",
   initialState,

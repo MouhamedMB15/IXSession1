@@ -1,5 +1,6 @@
 const Category = require("../models/Category");
 
+//create cateogory
 const createCategory = async (req, res) => {
   try {
     const category = new Category({
@@ -17,6 +18,7 @@ const createCategory = async (req, res) => {
   }
 };
 
+//get cateogires
 const getCategories = async (req, res) => {
   try {
     const categories = await Category.find();
@@ -28,6 +30,7 @@ const getCategories = async (req, res) => {
   }
 };
 
+//get cateogiry by id
 const getCategoryById = async (req, res) => {
   console.log(req.params.id);
   res.status(200).json({
@@ -36,6 +39,7 @@ const getCategoryById = async (req, res) => {
   });
 };
 
+//update cateogy by id
 const updateCategoryByID = async (req, res) => {
   try {
     const category = await Category.findById(req.params.id);
@@ -55,6 +59,7 @@ const updateCategoryByID = async (req, res) => {
   }
 };
 
+//delete cateogry by id
 const deleteCategoryByID = async (req, res) => {
   try {
     const categoryDB = await Category.findById(req.params.id);
