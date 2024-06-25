@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteBlogById, setDeleteBlog } from "../../features/blogsSlice";
 
 
+
 export default function DeleteBlogModal() {
   const dispatch = useDispatch();
   const [blog, setBlog] = useState();

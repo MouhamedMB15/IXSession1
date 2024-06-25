@@ -1,24 +1,19 @@
 
-const Blog = require("../models/Blog");
+const Blog = require('../models/Blog');
 
 const { uploadToFirebaseStorage } = require("../services/google-cloud");
 
 const createBlogs = async (req, res) => {
   try {
-    let imageURL = "";
-    if (req?.file?.path) {
-      imageURL = await uploadToFirebaseStorage(
-        req?.file?.path,
-        req?.file?.path
-      );
-    }
     console.log(req.body);
     const categoryIds = JSON.parse(req?.body?.categories).map((x) => x.id);
     const blog = new Blog({
       title: req.body.title,
       description: req.body.description,
-      image: imageURL,
-      content: JSON.parse(req?.body?.content),
+      image: req?.file?.path
+        ? req?.protocol + "://" + req?.headers?.host + "/" + req.file.path
+        : "",
+      content: JSON.parse(req.body.content),
       authorId: req.body.authorId,
       categoryIds: categoryIds,
     });
@@ -35,11 +30,10 @@ const createBlogs = async (req, res) => {
       message: "Blog created!",
       data: blogRes,
     });
-  } catch (err) {
-    res.status(500).json({ message: err.message, data: {} });
+  } catch (error) {
+    res.status(500).json({ message: error.message, data: {} });
   }
 };
-
 const getBlogs = async (req, res) => {
   try {
     const blogs = await Blog.find()
@@ -154,7 +148,14 @@ const updateBlogByID = async (req, res) => {
 
 const deleteBlogByID = async (req, res) => {
   try {
+    const blogDB = await Blog.findById(req.params.id);
+    if(!blogDB) {
+      res 
+        .status(400)
+        .json({message: "Cannot delete Blog"});
+    }
     const blog = await Blog.findByIdAndDelete(req.params.id);
+    console.log("deleteblogbyId", blog);
     if (blog) {
       return res
         .status(200)
@@ -163,9 +164,11 @@ const deleteBlogByID = async (req, res) => {
       return res.status(404).json({ message: "Blog not found!" });
     }
   } catch (error) {
+    console.log("Error Occured" + error );
     return res.status(500).json({ message: error.message });
   }
 };
+
 const blogController = {
   createBlogs,
   getBlogs,

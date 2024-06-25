@@ -1,3 +1,5 @@
+
+
 import React from "react";
 
 import { useNavigate } from "react-router-dom";
@@ -8,6 +10,7 @@ import EditButtons from "../EditButtons/EditButtons";
 import PropTypes from "prop-types";
 
 import "./blogitem.css";
+
 export default function BlogItem({
   index,
   blog,
