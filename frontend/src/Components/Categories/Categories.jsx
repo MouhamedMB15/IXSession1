@@ -23,6 +23,7 @@ export default function Categories({ categories }) {
             style={{
               color: category.color,
               backgroundColor: category.color + "33",
+              borderRadius: "12px",
               
             }}
           >

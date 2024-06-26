@@ -29,7 +29,9 @@ export default function BlogItemText({ blogPost, headerFontSize }) {
         {blogPost.description.substring(0, 100)}...
       </p>
       {/* TODO: Fix Cateogires Not Displaing */}
-      <Categories blogPost={blogPost?.categories} />
+      <Categories categories={blogPost.categories} />
+      
+
     </div>
   );
 }
