@@ -1,19 +1,20 @@
 
+//Imports
 const Blog = require('../models/Blog');
+const {uploadToCloudinary} = require('../services/cloudinary');
 
-const { uploadToFirebaseStorage } = require("../services/google-cloud");
 
 //create Blogs
 const createBlogs = async (req, res) => {
   try {
     console.log(req.body);
     const categoryIds = JSON.parse(req?.body?.categories).map((x) => x.id);
+    const imageUrl = req.file ? req.file.path : ""; //cloudinary url
+
     const blog = new Blog({
       title: req.body.title,
       description: req.body.description,
-      image: req?.file?.path
-        ? req?.protocol + "://" + req?.headers?.host + "/" + req.file.path
-        : "",
+      image: imageUrl, // Cloudinary URL
       content: JSON.parse(req.body.content),
       authorId: req.body.authorId,
       categoryIds: categoryIds,
@@ -35,7 +36,6 @@ const createBlogs = async (req, res) => {
     res.status(500).json({ message: error.message, data: {} });
   }
 };
-
 //get Blogs
 const getBlogs = async (req, res) => {
   try {
@@ -119,7 +119,7 @@ const updateBlogByID = async (req, res) => {
   try {
     let imageURL = "";
     if (req?.file?.path) {
-      imageURL = await uploadToFirebaseStorage(
+      imageURL = await uploadToCloudinary(
         req?.file?.path,
         req?.file?.path
       );
@@ -188,3 +188,5 @@ const blogController = {
 };
 
 module.exports = blogController;
+
+
